@@ -28,6 +28,8 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_API_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -75,15 +77,11 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
-        env:
-          API_KEY: ZGllZ28ucGVkcm86azVKYVFGcFhkTk1jNVFO
-          NEXT_PUBLIC_API_KEY: ZGllZ28ucGVkcm86azVKYVFGcFhkTk1jNVFO
-      - name: Debug Variáveis no Deploy
-        run: echo "NEXT_PUBLIC_API_KEY=${{vars.API_KEY}}"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
+
 
   # Deployment job
   deploy:
