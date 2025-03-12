@@ -76,8 +76,8 @@ jobs:
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
         env:
-          API_KEY: ${{ vars.API_KEY }} 
-          NEXT_PUBLIC_API_KEY: ${{ vars.NEXT_PUBLIC_API_KEY }}
+          API_KEY: ZGllZ28ucGVkcm86azVKYVFGcFhkTk1jNVFO
+          NEXT_PUBLIC_API_KEY: ZGllZ28ucGVkcm86azVKYVFGcFhkTk1jNVFO
       - name: Debug Variáveis no Deploy
         run: echo "NEXT_PUBLIC_API_KEY=${{vars.API_KEY}}"
       - name: Upload artifact
