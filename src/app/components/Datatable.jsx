@@ -20,7 +20,8 @@ const DataTable = ({ data }) => {
             <th className="border p-2">Data</th>
             <th className="border p-2">Aprovador do Serviço</th>
             <th className="border p-2">Área responsável</th>
-            <th className="border p-2">Aprovado</th>
+            <th className="border p-2">Aprovado Medição</th>
+            <th className="border p-2">Aprovado Nota Fiscal</th>
           </tr>
         </thead>
         <tbody>
@@ -42,7 +43,14 @@ const DataTable = ({ data }) => {
               <td className="border p-2 text-center">
                 <span
                   className={`inline-block w-3 h-3 rounded-full ${
-                    item.aprovado ? "bg-green-500" : "bg-red-500"
+                    item.aprovadoNF ? "bg-green-500" : "bg-red-500"
+                  }`}
+                ></span>
+              </td>
+              <td className="border p-2 text-center">
+                <span
+                  className={`inline-block w-3 h-3 rounded-full ${
+                    item.aprovadoSolicitacao ? "bg-green-500" : "bg-red-500"
                   }`}
                 ></span>
               </td>
