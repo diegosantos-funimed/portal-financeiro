@@ -13,6 +13,7 @@ export default function DashboardPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    console.log(process.env.NEXT_PUBLIC_API_KEY)
     if (!userName) {
       setLoading(false);
       return;
@@ -25,7 +26,7 @@ export default function DashboardPage() {
           {
             method: "POST",
             headers: {
-              "Authorization": `Basic ZGllZ28ucGVkcm86azVKYVFGcFhkTk1jNVFO`,
+              "Authorization": `Basic ${process.env.NEXT_PUBLIC_API_KEY}`,
               "User-Agent": "insomnia/10.3.0",
               "X-Explorer-Account-Token": "faculdadeunimed-dev"
             },
@@ -55,7 +56,6 @@ export default function DashboardPage() {
 
   return (
     <div className="p-2 container mx-auto">
-      Pagina
       {loading && <p>Carregando...</p>}
       {error && <p className="text-red-500">Erro: {error}</p>}
       {!loading && !error && data && <DataTable data={data} />}
