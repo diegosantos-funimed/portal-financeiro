@@ -76,11 +76,6 @@ jobs:
     needs: build
     environment: github-pages
     steps:
-      - name: Baixar artefato do build
-        uses: actions/download-artifact@v3
-        with:
-          name: github-pages
-          path: .next
 
       - name: Definir variável de ambiente no deploy
         run: echo "NEXT_PUBLIC_API_KEY=${{ secrets.NEXT_PUBLIC_API_KEY }}" >> $GITHUB_ENV
