@@ -56,7 +56,7 @@ export default function DashboardPage() {
 
   return (
     <div className="p-2 container mx-auto">
-      {loading && <p>Carregando...</p>}
+      {loading && <p>Carregando....</p>}
       {error && <p className="text-red-500">Erro: {error}</p>}
       {!loading && !error && data && <DataTable data={data} />}
     </div>
