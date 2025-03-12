@@ -25,7 +25,7 @@ export default function DashboardPage() {
           {
             method: "POST",
             headers: {
-              "Authorization": `Basic ${process.env.NEXT_PUBLIC_API_KEY}`,
+              "Authorization": `Basic ZGllZ28ucGVkcm86azVKYVFGcFhkTk1jNVFO`,
               "User-Agent": "insomnia/10.3.0",
               "X-Explorer-Account-Token": "faculdadeunimed-dev"
             },

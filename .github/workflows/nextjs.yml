@@ -94,3 +94,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Debug Variáveis
+        run: echo "NEXT_PUBLIC_API_KEY=$NEXT_PUBLIC_API_KEY"
+
