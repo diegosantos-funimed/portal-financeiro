@@ -43,14 +43,14 @@ const DataTable = ({ data }) => {
               <td className="border p-2 text-center">
                 <span
                   className={`inline-block w-3 h-3 rounded-full ${
-                    item.aprovadoNF ? "bg-green-500" : "bg-red-500"
+                    item.aprovadoSolicitacao ? "bg-green-500" : "bg-red-500"
                   }`}
                 ></span>
               </td>
               <td className="border p-2 text-center">
                 <span
                   className={`inline-block w-3 h-3 rounded-full ${
-                    item.aprovadoSolicitacao ? "bg-green-500" : "bg-red-500"
+                    item.aprovadoNF ? "bg-green-500" : "bg-red-500"
                   }`}
                 ></span>
               </td>
