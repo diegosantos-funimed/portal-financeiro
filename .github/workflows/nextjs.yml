@@ -50,7 +50,7 @@ jobs:
           static_site_generator: next
 
       - name: Definir variável de ambiente para build
-        run: echo "NEXT_PUBLIC_API_KEY=${{ secrets.NEXT_PUBLIC_API_KEY }}" >> $GITHUB_ENV
+        run: echo "NEXT_PUBLIC_API_KEY=${{ vars.NEXT_PUBLIC_API_KEY }}" >> $GITHUB_ENV
 
       - name: Debug Variáveis no Build
         run: echo "NEXT_PUBLIC_API_KEY=$NEXT_PUBLIC_API_KEY"
@@ -58,17 +58,12 @@ jobs:
       - name: Instalar dependências
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         env:
-          NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_API_KEY }}
+          NEXT_PUBLIC_API_KEY: ${{ vars.NEXT_PUBLIC_API_KEY }}
 
       - name: Build com Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
         env:
-          NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_API_KEY }}
-
-      - name: Upload dos arquivos para deployment
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: .next
+          NEXT_PUBLIC_API_KEY: ${{ vars.NEXT_PUBLIC_API_KEY }}
 
   # Deployment job
   deploy:
@@ -78,7 +73,7 @@ jobs:
     steps:
 
       - name: Definir variável de ambiente no deploy
-        run: echo "NEXT_PUBLIC_API_KEY=${{ secrets.NEXT_PUBLIC_API_KEY }}" >> $GITHUB_ENV
+        run: echo "NEXT_PUBLIC_API_KEY=${{ vars.NEXT_PUBLIC_API_KEY }}" >> $GITHUB_ENV
 
       - name: Debug Variáveis no Deploy
         run: echo "NEXT_PUBLIC_API_KEY=$NEXT_PUBLIC_API_KEY"
@@ -89,4 +84,4 @@ jobs:
 
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_API_KEY }}
+      NEXT_PUBLIC_API_KEY: ${{ vars.NEXT_PUBLIC_API_KEY }}
