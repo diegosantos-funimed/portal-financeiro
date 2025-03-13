@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import DataTable from "../app/components/Datatable";
+import DataTable from "../app/components/UserDataTable";
 import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
@@ -13,7 +13,6 @@ export default function DashboardPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log(process.env.NEXT_PUBLIC_API_KEY)
     if (!userName) {
       setLoading(false);
       return;
