@@ -4,6 +4,7 @@ import formatNumberToDecimal from "../utils/formatNumberToDecimal";
 import formatCNPJ from "../utils/formatCNPJ";
 import LegendTooltip from "./LegendTooptip";
 import { Download } from "@mui/icons-material";
+import handleStatusFlag from "../utils/handleStatusFlag";
 
 const ManagerReportDataTable = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -11,11 +12,10 @@ const ManagerReportDataTable = ({ data }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
 
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-
-  const filteredData = data.filter(item => {
+  // Filtrando os dados
+  const filteredData = data.filter((item) => {
     const itemDate = new Date(item.data);
     const start = startDate ? new Date(startDate) : null;
     const end = endDate ? new Date(endDate) : null;
@@ -25,24 +25,32 @@ const ManagerReportDataTable = ({ data }) => {
       item.solicitante.toLowerCase().includes(searchQuery.toLowerCase()) ||
       formatDate(item.data).includes(searchQuery);
 
-    const matchesDateRange =
-      (!start || itemDate >= start) &&
-      (!end || itemDate <= end);
+    const matchesDateRange = (!start || itemDate >= start) && (!end || itemDate <= end);
 
-    return matchesSearch && matchesDateRange;
+    const matchesStatus = !statusFilter || handleStatusFlag(item) === statusFilter;
+
+    return matchesSearch && matchesDateRange && matchesStatus;
   });
 
+  // Atualiza o total de páginas com base nos dados filtrados
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage) || 1;
+
+  // Resetar a página para 1 sempre que os filtros mudarem
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, startDate, endDate, statusFilter]);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
   const currentData = filteredData.slice(startIndex, startIndex + itemsPerPage);
 
-
-
+  // Redirecionar para o link de download
   const handleRedirect = (protocolNumber, nf) => {
     const url = `https://faculdadeunimed-dev.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/downloadServiceFiles/?protocolo=${protocolNumber}&anexo=${nf}`;
     window.open(url, "_blank");
   };
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto ">
       <div className="flex content-start gap-3">
         <div className="mb-4">
           <label className="block mb-1">Buscar por CNPJ, Solicitante:</label>
@@ -76,7 +84,13 @@ const ManagerReportDataTable = ({ data }) => {
         </div>
         <div className="flex mb-4 flex-col">
           <label className="block mb-1">Status:</label>
-          <select name="status_filter" id="status_filter" className="border rounded p-2 w-50">
+          <select
+            name="status_filter"
+            id="status_filter"
+            className="border rounded p-2 w-50"
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+          >
             <option value="">Selecione uma opção</option>
             <option value="not_send">Não enviada</option>
             <option value="reproved">Reprovada</option>
@@ -84,16 +98,15 @@ const ManagerReportDataTable = ({ data }) => {
             <option value="paid">Pago</option>
           </select>
         </div>
-        <div className="w-100 mb-4 self-center">
+        <div className="w-full mb-4 self-center">
           <LegendTooltip />
-
         </div>
       </div>
 
       <table className="min-w-full border border-gray-300">
         <thead>
           <tr className="bg-gray-200 text-gray-700">
-          <th className="border p-2">#</th>
+            <th className="border p-2">#</th>
             <th className="border p-2">CNPJ - Solicitante</th>
             <th className="border p-2">Data</th>
             <th className="border p-2">Descrição</th>
@@ -101,38 +114,35 @@ const ManagerReportDataTable = ({ data }) => {
             <th className="border p-2">Status</th>
             <th className="border p-2">Anexo <br /> Evidências</th>
             <th className="border p-2">Anexo NF </th>
-
           </tr>
         </thead>
         <tbody>
           {currentData.map((item) => (
             <tr key={item._id} className="border hover:bg-gray-100">
-               <td className="border p-2 text-center">
-                {item.protocolo}
-              </td>
+              <td className="border p-2 text-center">{item.protocolo}</td>
               <td className="border p-2 text-center">{formatCNPJ(item.cnpj)} - <br /> {item.solicitante} </td>
-              <td className="border p-2 text-center">
-                {formatDate(item.data)}
-              </td>
-              <td className="border p-2 text-center">
-                {item.descricao}
-              </td>
-              <td className="border p-2 text-center">
-                R$ {formatNumberToDecimal(item.valor)}
-              </td>
-
-
+              <td className="border p-2 text-center">{formatDate(item.data)}</td>
+              <td className="border p-2 text-center">{item.descricao}</td>
+              <td className="border p-2 text-center">R$ {formatNumberToDecimal(item.valor)}</td>
               <td className="border p-2 text-center">
                 <span
-                  className={`inline-block w-3 h-3 rounded-full ${item.aprovado ? "bg-green-500" : "bg-red-500"
-                    }`}
+                  className={`inline-block w-3 h-3 rounded-full 
+                    ${handleStatusFlag(item) === "not_send" ?
+                      "bg-red-500" :
+                      handleStatusFlag(item) === "reproved" ?
+                        "bg-yellow-500" :
+                        handleStatusFlag(item) === "approved" ?
+                          "bg-blue-500" :
+                          handleStatusFlag(item) === "paid" ?
+                            "bg-green-500" : "bg-gray-500"}`}
                 ></span>
               </td>
               <td className="border p-2 text-center">
                 {item.anexo ? (
                   <button
                     className="border p-1 rounded bg-blue-300 cursor-pointer"
-                    onClick={() => handleRedirect(item.protocolo, "solicitacao")} >
+                    onClick={() => handleRedirect(item.protocolo, "solicitacao")}
+                  >
                     <Download sx={{ fontSize: 20 }} />
                   </button>
                 ) : "Não"}
@@ -141,7 +151,8 @@ const ManagerReportDataTable = ({ data }) => {
                 {item.anexoNF ? (
                   <button
                     className="border p-1 rounded bg-green-500 cursor-pointer"
-                    onClick={() => handleRedirect(item.protocolo, "nf")} >
+                    onClick={() => handleRedirect(item.protocolo, "nf")}
+                  >
                     <Download sx={{ fontSize: 20 }} />
                   </button>
                 ) : "Não"}
@@ -150,11 +161,12 @@ const ManagerReportDataTable = ({ data }) => {
           ))}
         </tbody>
       </table>
+
       {/* Paginação */}
       <div className="flex justify-center items-center mt-4">
         <button
           className="px-3 py-1 border rounded mx-1 cursor-pointer hover:bg-gray-300"
-          onClick={() => setCurrentPage(currentPage - 1)}
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
         >
           Anterior
@@ -162,7 +174,7 @@ const ManagerReportDataTable = ({ data }) => {
         <span className="px-3">Página {currentPage} de {totalPages}</span>
         <button
           className="px-3 py-1 border rounded mx-1 cursor-pointer hover:bg-gray-300"
-          onClick={() => setCurrentPage(currentPage + 1)}
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={currentPage === totalPages}
         >
           Próxima

@@ -10,8 +10,6 @@ export default function ReportPage() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-
-
         async function fetchData() {
             try {
                 const response = await fetch(
@@ -49,7 +47,7 @@ export default function ReportPage() {
 
 
     return (
-        <div className="container mx-auto p-3">
+        <div className="container mx-auto">
             {data && <ManagerReportDataTable data={data} />}
         </div>
     )
