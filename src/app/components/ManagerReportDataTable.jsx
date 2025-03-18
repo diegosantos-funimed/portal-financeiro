@@ -21,14 +21,14 @@ const ManagerReportDataTable = ({ data }) => {
 
   // Filtrando os dados
   const filteredData = data.filter((item) => {
-    const itemDate = new Date(item.data);
+    const itemDate = new Date(item.dataCriacao);
     const start = startDate ? new Date(startDate) : null;
     const end = endDate ? new Date(endDate) : null;
 
     const matchesSearch =
       formatCNPJ(item.cnpj).includes(searchQuery) ||
       item.solicitante.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      formatDate(item.data).includes(searchQuery);
+      formatDate(item.dataCriacao).includes(searchQuery);
 
     const matchesDateRange = (!start || itemDate >= start) && (!end || itemDate <= end);
 
