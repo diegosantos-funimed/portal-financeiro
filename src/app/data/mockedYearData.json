@@ -1,0 +1,320 @@
+{
+    "fornecedores": [
+        {
+            "nome": "Fornecedor A",
+            "cnpj": "12.345.678/0001-01",
+            "envios": [
+                {
+                    "mes": "Março",
+                    "nf": "0001",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Abril",
+                    "nf": "0002",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Maio",
+                    "nf": "0003",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Junho",
+                    "nf": "0201",
+                    "aprovada": null
+                },
+                {
+                    "mes": "Julho",
+                    "nf": "0202",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Agosto",
+                    "nf": "0203",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Setembro",
+                    "nf": "0204",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Outubro",
+                    "nf": "0205",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Novembro",
+                    "nf": "0206",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Dezembro",
+                    "nf": "0207",
+                    "aprovada": false
+                }
+            ]
+        },
+        {
+            "nome": "Fornecedor B",
+            "cnpj": "12.345.678/0001-02",
+            "envios": [
+                {
+                    "mes": "Fevereiro",
+                    "nf": "0101",
+                    "aprovada": null
+                },
+                {
+                    "mes": "Março",
+                    "nf": "0102",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Abril",
+                    "nf": "0103",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Maio",
+                    "nf": "0104",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Junho",
+                    "nf": "0105",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Julho",
+                    "nf": "0106",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Agosto",
+                    "nf": "0107",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Setembro",
+                    "nf": "0108",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Outubro",
+                    "nf": "0109",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Novembro",
+                    "nf": "0110",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Dezembro",
+                    "nf": "0111",
+                    "aprovada": true
+                }
+            ]
+        },
+        {
+            "nome": "Fornecedor C",
+            "cnpj": "12.345.678/0001-03",
+            "envios": [
+                {
+                    "mes": "Junho",
+                    "nf": "0201",
+                    "aprovada": null
+                },
+                {
+                    "mes": "Julho",
+                    "nf": "0202",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Agosto",
+                    "nf": "0203",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Setembro",
+                    "nf": "0204",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Outubro",
+                    "nf": "0205",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Novembro",
+                    "nf": "0206",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Dezembro",
+                    "nf": "0207",
+                    "aprovada": true
+                }
+            ]
+        },
+        {
+            "nome": "Fornecedor D",
+            "cnpj": "12.345.678/0001-04",
+            "envios": []
+        },
+        {
+            "nome": "Fornecedor E",
+            "cnpj": "12.345.678/0001-05",
+            "envios": [
+                {
+                    "mes": "Setembro",
+                    "nf": "0302",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Novembro",
+                    "nf": "0303",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Outubro",
+                    "nf": "0303",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Dezembro",
+                    "nf": "0304",
+                    "aprovada": true
+                }
+            ]
+        },
+        {
+            "nome": "Fornecedor F",
+            "cnpj": "12.345.678/0001-06",
+            "envios": [
+                {
+                    "mes": "Fevereiro",
+                    "nf": "0401",
+                    "aprovada": null
+                },
+                {
+                    "mes": "Março",
+                    "nf": "0402",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Abril",
+                    "nf": "0403",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Junho",
+                    "nf": "0404",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Julho",
+                    "nf": "0405",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Maio",
+                    "nf": "0406",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Agosto",
+                    "nf": "0407",
+                    "aprovada": null
+                },
+                {
+                    "mes": "Setembro",
+                    "nf": "0408",
+                    "aprovada": null
+                },
+                {
+                    "mes": "Outubro",
+                    "nf": "0409",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Novembro",
+                    "nf": "0410",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Dezembro",
+                    "nf": "0411",
+                    "aprovada": true
+                }
+            ]
+        },
+        {
+            "nome": "Fornecedor G",
+            "cnpj": "12.345.678/0001-07",
+            "envios": [
+                {
+                    "mes": "Janeiro",
+                    "nf": "0501",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Fevereiro",
+                    "nf": "0502",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Março",
+                    "nf": "0503",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Abril",
+                    "nf": "0504",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Maio",
+                    "nf": "0505",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Junho",
+                    "nf": "0506",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Julho",
+                    "nf": "0507",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Agosto",
+                    "nf": "0508",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Setembro",
+                    "nf": "0509",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Outubro",
+                    "nf": "0510",
+                    "aprovada": true
+                },
+                {
+                    "mes": "Novembro",
+                    "nf": "0511",
+                    "aprovada": false
+                },
+                {
+                    "mes": "Dezembro",
+                    "nf": "0512",
+                    "aprovada": true
+                }
+            ]
+        }
+    ]
+}

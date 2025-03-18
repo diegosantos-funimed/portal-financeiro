@@ -22,9 +22,6 @@ export default function ReportPage() {
                             "X-Explorer-Account-Token": "faculdadeunimed-dev"
                         },
                         cache: "no-store",
-                        // body: JSON.stringify({
-                        //     "user_id": userName
-                        // })
                     }
                 );
 

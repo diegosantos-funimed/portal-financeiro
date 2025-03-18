@@ -14,18 +14,18 @@ const LegendTooltip = () => {
         <span className="inline-block w-3 h-3 border rounded-full bg-green-500"></span>
       </button>
       {showTooltip && (
-        <div className="absolute right-0 mt-6 w-72 p-2 bg-gray-800 text-white text-sm rounded transition-opacity">
-          <div className="flex items-center gap-1">
+        <div className="absolute right-0 mt-6 w-80 p-2 bg-gray-800 text-white text-sm rounded transition-opacity">
+          {/* <div className="flex items-center gap-1">
             <span className="inline-block w-4 h-4 border rounded-full bg-gray-500"></span>{" "}
             - Antes da data de início de cobrança
-          </div>
+          </div> */}
           <div className="flex items-center gap-1">
             <span className="inline-block w-4 h-4 border rounded-full bg-red-500"></span>{" "}
-            - Não enviada
+            - Nota não enviada ou medição reprovada
           </div>
           <div className="flex items-center gap-1">
             <span className="inline-block w-4 h-4 border rounded-full bg-yellow-500"></span>{" "}
-            - Nota enviada e reprovada
+            - Nota enviada ou reprovada
           </div>
           <div className="flex items-center gap-1">
             <span className="inline-block w-4 h-4 border rounded-full bg-blue-500"></span>{" "}

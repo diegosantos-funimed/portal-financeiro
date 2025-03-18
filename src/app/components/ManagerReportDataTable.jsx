@@ -3,8 +3,9 @@ import formatDate from "../utils/formatDate";
 import formatNumberToDecimal from "../utils/formatNumberToDecimal";
 import formatCNPJ from "../utils/formatCNPJ";
 import LegendTooltip from "./LegendTooptip";
-import { Download } from "@mui/icons-material";
+import { Download, Visibility } from "@mui/icons-material";
 import handleStatusFlag from "../utils/handleStatusFlag";
+import DetailsModal from "./DetailsModal";
 
 const ManagerReportDataTable = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,6 +14,10 @@ const ManagerReportDataTable = ({ data }) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const [openModal, setModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [selectedTooltip, setSelectedTooltip] = useState(null);
 
   // Filtrando os dados
   const filteredData = data.filter((item) => {
@@ -49,8 +54,21 @@ const ManagerReportDataTable = ({ data }) => {
     window.open(url, "_blank");
   };
 
+  const handleModal = (item) => {
+    setSelectedItem(item);
+    setModal(true);
+  };
+
   return (
     <div className="overflow-x-auto ">
+      {openModal && selectedItem && (
+        <DetailsModal item={selectedItem} onClose={() => setModal(false)} />
+      )}
+      {showTooltip && (
+        <div className="absolute right-0 mt-6 w-80 p-2 bg-gray-800 text-white text-sm rounded transition-opacity">
+          {selectedTooltip.status}
+        </div>
+      )}
       <div className="flex content-start gap-3">
         <div className="mb-4">
           <label className="block mb-1">Buscar por CNPJ, Solicitante:</label>
@@ -103,17 +121,18 @@ const ManagerReportDataTable = ({ data }) => {
         </div>
       </div>
 
-      <table className="min-w-full border border-gray-300">
+      <table className="min-w-full border border-gray-300 ">
         <thead>
           <tr className="bg-gray-200 text-gray-700">
             <th className="border p-2">#</th>
             <th className="border p-2">CNPJ - Solicitante</th>
-            <th className="border p-2">Data</th>
+            <th className="border p-2">Data de abertura</th>
+            <th className="border p-2">Ultima atualização</th>
             <th className="border p-2">Descrição</th>
             <th className="border p-2">Valor</th>
             <th className="border p-2">Status</th>
-            <th className="border p-2">Anexo <br /> Evidências</th>
-            <th className="border p-2">Anexo NF </th>
+            {/* <th className="border p-2">Anexo <br /> Evidências</th> */}
+            <th className="border p-2">Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -121,8 +140,12 @@ const ManagerReportDataTable = ({ data }) => {
             <tr key={item._id} className="border hover:bg-gray-100">
               <td className="border p-2 text-center">{item.protocolo}</td>
               <td className="border p-2 text-center">{formatCNPJ(item.cnpj)} - <br /> {item.solicitante} </td>
-              <td className="border p-2 text-center">{formatDate(item.data)}</td>
-              <td className="border p-2 text-center">{item.descricao}</td>
+              <td className="border p-2 text-center">{formatDate(item.dataCriacao)}</td>
+              <td className="border p-2 text-center">{formatDate(item.dataAtualizacao)}</td>
+
+              <td className="border p-2 text-center">
+                {item.descricao.length > 30 ? `${item.descricao.substring(0, 30)}...` : item.descricao}
+              </td>
               <td className="border p-2 text-center">R$ {formatNumberToDecimal(item.valor)}</td>
               <td className="border p-2 text-center">
                 <span
@@ -137,7 +160,7 @@ const ManagerReportDataTable = ({ data }) => {
                             "bg-green-500" : "bg-gray-500"}`}
                 ></span>
               </td>
-              <td className="border p-2 text-center">
+              {/* <td className="border p-2 text-center">
                 {item.anexo ? (
                   <button
                     className="border p-1 rounded bg-blue-300 cursor-pointer"
@@ -146,18 +169,28 @@ const ManagerReportDataTable = ({ data }) => {
                     <Download sx={{ fontSize: 20 }} />
                   </button>
                 ) : "Não"}
-              </td>
-              <td className="border p-2 text-center">
-                {item.anexoNF ? (
+              </td> */}
+              <td className=" py-3 text-center flex justify-center items-center">
+                {/* {item.anexoNF ? (
                   <button
                     className="border p-1 rounded bg-green-500 cursor-pointer"
                     onClick={() => handleRedirect(item.protocolo, "nf")}
                   >
                     <Download sx={{ fontSize: 20 }} />
                   </button>
-                ) : "Não"}
+                ) : "Não"} */}
+                <td className="">
+                  <button
+                    type="button"
+                    className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-green-700 cursor-pointer"
+                    onClick={() => handleModal(item)}
+                  >
+                    <Visibility />
+                  </button>
+                </td>
               </td>
             </tr>
+
           ))}
         </tbody>
       </table>
