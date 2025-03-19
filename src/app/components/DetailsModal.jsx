@@ -18,7 +18,7 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                     Detalhes da Solicitação # {selectedItem.protocolo}
 
                 </h2>
-                <div className="px-4 pb-4">
+                <div className="px-5 pb-4">
                     <div className="flex">
                         <p className="text text-gray-700 w-1/2">
                             <strong>CNPJ:</strong> {formatCNPJ(selectedItem.cnpj)}
@@ -28,7 +28,7 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                         </p>
                     </div>
                     <div className="flex">
-                    <p className="text text-gray-700 w-1/2">
+                        <p className="text text-gray-700 w-1/2">
                             <strong>Área responsável:</strong> {selectedItem.areaResponsavel}
                         </p>
                         <p className="text text-gray-700 w-1/2">
@@ -75,45 +75,67 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                     <p className="text text-gray-700">
                         <strong>Descrição:</strong> {selectedItem.descricao}
                     </p>
-                    <p className="text text-gray-700">
-                        <strong>Anexos</strong>
-                        <div className="flex flex-col">
-                            <div className="flex flex-col items-start">
-                                <span className="text-sm">
-                                    <strong>Medição de serviço:</strong>
-                                </span>
-                                <div className="flex gap-2">
-                                    {selectedItem.anexo ? (
-                                        <button
-                                            className="border p-1 rounded bg-green-500 cursor-pointer"
-                                            onClick={() => handleRedirect(selectedItem.protocolo, "solicitacao")}
-                                        >
-                                            <Download sx={{ fontSize: 20 }} />
-                                        </button>
-                                    ) : "Não"}
+                    <div className="flex">
+                        <p className="text text-gray-700 w-1/2">
+                            <strong>Anexos</strong>
+                            <div className="flex flex-col">
+                                <div className="flex flex-col items-start">
+                                    <span className="text-sm">
+                                        <strong>Medição de serviço:</strong>
+                                    </span>
+                                    <div className="flex gap-2">
+                                        {selectedItem.anexo ? (
+                                            <button
+                                                className="border p-1 rounded bg-green-500 cursor-pointer"
+                                                onClick={() => handleRedirect(selectedItem.protocolo, "solicitacao")}
+                                            >
+                                                <Download sx={{ fontSize: 20 }} />
+                                            </button>
+                                        ) : "Não"}
 
 
-                                </div>
-
-                            </div>
-                            <div className="flex flex-col items-start">
-                                <span className="text-sm">
-                                    <strong>Nota Fiscal:</strong>
-                                </span>
-                                <div className="">
-                                    {selectedItem.anexoNF ? (
-                                        <button
-                                            className="border p-1 rounded bg-blue-500 cursor-pointer"
-                                            onClick={() => handleRedirect(selectedItem.protocolo, "nf")}
-                                        >
-                                            <Download sx={{ fontSize: 20 }} />
-                                        </button>
-                                    ) : "Não enviada"}
+                                    </div>
 
                                 </div>
+                                <div className="flex flex-col items-start">
+                                    <span className="text-sm">
+                                        <strong>Nota Fiscal:</strong>
+                                    </span>
+                                    <div className="">
+                                        {selectedItem.anexoNF ? (
+                                            <button
+                                                className="border p-1 rounded bg-blue-500 cursor-pointer"
+                                                onClick={() => handleRedirect(selectedItem.protocolo, "nf")}
+                                            >
+                                                <Download sx={{ fontSize: 20 }} />
+                                            </button>
+                                        ) : "Não enviada"}
+
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </p>
+                        </p>
+                        <p className="text text-gray-700 w-1/2">
+                            {selectedItem.centroDeCusto !== "-" && (
+                                <div>
+                                    <strong>Centros de custo</strong>
+                                    <div className="flex flex-col gap-2">
+                                        {selectedItem.centroDeCusto.map((centro, index) => (
+                                            <div key={index} className="flex flex-col">
+                                                <span className="text-sm">
+                                                    <strong>Nome:</strong> {centro.codigoDoCentroDeCustos} / {centro.setor}
+                                                </span>
+                                                <span className="text-sm">
+                                                    <strong>Porcentagem:</strong>  {centro.porcentagem} %
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </p>
+                    </div>
+
                 </div>
                 <div className="border-t border-gray-300 flex justify-between items-center px-4 pt-2">
                     <button
