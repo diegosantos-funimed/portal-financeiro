@@ -10,54 +10,68 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
     const handleRedirect = (protocolNumber, nf) => {
         const url = `https://faculdadeunimed-dev.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/downloadServiceFiles/?protocolo=${protocolNumber}&anexo=${nf}`;
         window.open(url, "_blank");
-      };
+    };
     return (
-        <div className="fixed top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center">
-            <div className=" bg-white shadow-lg py-4 rounded-md w-120">
+        <div className="fixed top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center transition-opacity duration-300 opacity-100">
+            <div className=" bg-white shadow-lg py-4 rounded-md w-200">
                 <h2 className="text-lg font-semibold text-gray-900 border-b border-gray-300 py-3 px-4 mb-4">
-                    Detalhes da Solicitação
+                    Detalhes da Solicitação # {selectedItem.protocolo}
+
                 </h2>
                 <div className="px-4 pb-4">
-                    <p className="text text-gray-700">
-                        <strong>CNPJ:</strong> {formatCNPJ(selectedItem.cnpj)}
-                    </p>
-                    <p className="text text-gray-700">
-                        <strong>Protocolo:</strong> {selectedItem.protocolo}
-                    </p>
-                    <p className="text text-gray-700">
-                        <strong>Solicitante:</strong> {selectedItem.solicitante}
-                    </p>
-                    <p className="text text-gray-700">
-                        <strong>Data de Abertura:</strong> {formatDate(selectedItem.dataCriacao)}
-                    </p>
-                    <p className="text text-gray-700">
-                        <strong>Última Atualização:</strong> {formatDate(selectedItem.dataAtualizacao)}
-                    </p>
-                    <p className="text text-gray-700">
-                        <strong>Valor:</strong> R$ {formatNumberToDecimal(selectedItem.valor)}
-                    </p>
-                    <p className="text text-gray-700 flex items-center gap-1">
-                        <strong>Status:</strong> <span
-                            className={`inline-block  w-4 h-4 rounded-full border
+                    <div className="flex">
+                        <p className="text text-gray-700 w-1/2">
+                            <strong>CNPJ:</strong> {formatCNPJ(selectedItem.cnpj)}
+                        </p>
+                        <p className="text text-gray-700 w-1/2">
+                            <strong>Solicitante:</strong> {selectedItem.solicitante}
+                        </p>
+                    </div>
+                    <div className="flex">
+                    <p className="text text-gray-700 w-1/2">
+                            <strong>Área responsável:</strong> {selectedItem.areaResponsavel}
+                        </p>
+                        <p className="text text-gray-700 w-1/2">
+                            <strong>Aprovador:</strong> {selectedItem.aprovador}
+                        </p>
+                    </div>
+                    <div className="flex ">
+                        <p className="text text-gray-700 w-1/2">
+                            <strong>Data de Abertura:</strong> {formatDate(selectedItem.dataCriacao)}
+                        </p>
+                        <p className="text text-gray-700 w-1/2">
+                            <strong>Última Atualização:</strong> {formatDate(selectedItem.dataAtualizacao)}
+                        </p>
+                    </div>
+                    <div className="flex ">
+                        <p className="text text-gray-700 w-1/2">
+                            <strong>Valor:</strong> R$ {formatNumberToDecimal(selectedItem.valor)}
+                        </p>
+                        <p className="text text-gray-700 flex items-center gap-1 w-1/2">
+                            <strong>Status:</strong> <span
+                                className={`inline-block  w-4 h-4 rounded-full border
                     ${handleStatusFlag(selectedItem) === "not_send" ?
-                                    "bg-red-500" :
-                                    handleStatusFlag(selectedItem) === "reproved" ?
-                                        "bg-yellow-500" :
-                                        handleStatusFlag(selectedItem) === "approved" ?
-                                            "bg-blue-500" :
-                                            handleStatusFlag(selectedItem) === "paid" ?
-                                                "bg-green-500" : "bg-gray-500"}`}
+                                        "bg-red-500" :
+                                        handleStatusFlag(selectedItem) === "reproved" ?
+                                            "bg-yellow-500" :
+                                            handleStatusFlag(selectedItem) === "approved" ?
+                                                "bg-blue-500" :
+                                                handleStatusFlag(selectedItem) === "paid" ?
+                                                    "bg-green-500" : "bg-gray-500"}`}
 
-                        ></span>
-                        <span> - {handleStatusFlag(selectedItem) === "not_send" ?
-                            "Nota não enviada ou medição reprovada" :
-                            handleStatusFlag(selectedItem) === "reproved" ?
-                                "Nota enviada ou reprovada" :
-                                handleStatusFlag(selectedItem) === "approved" ?
-                                    "Nota aprovada" :
-                                    handleStatusFlag(selectedItem) === "paid" ?
-                                        "Nota paga" : "bg-gray-500"}</span>
-                    </p>
+                            ></span>
+                            <span> - {handleStatusFlag(selectedItem) === "not_send" ?
+                                "Nota não enviada ou medição reprovada" :
+                                handleStatusFlag(selectedItem) === "reproved" ?
+                                    "Nota enviada ou reprovada" :
+                                    handleStatusFlag(selectedItem) === "approved" ?
+                                        "Nota aprovada" :
+                                        handleStatusFlag(selectedItem) === "paid" ?
+                                            "Nota paga" : "bg-gray-500"}</span>
+                        </p>
+                    </div>
+
+
                     <p className="text text-gray-700">
                         <strong>Descrição:</strong> {selectedItem.descricao}
                     </p>

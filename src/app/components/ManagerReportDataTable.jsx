@@ -27,15 +27,17 @@ const ManagerReportDataTable = ({ data }) => {
 
     const matchesSearch =
       formatCNPJ(item.cnpj).includes(searchQuery) ||
-      item.solicitante.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      formatDate(item.dataCriacao).includes(searchQuery);
+      item.solicitante.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      formatDate(item.dataCriacao).includes(searchQuery) ||
+      item.protocolo.toString().includes(searchQuery); // <-- Adicionado filtro pelo protocolo
 
     const matchesDateRange = (!start || itemDate >= start) && (!end || itemDate <= end);
 
     const matchesStatus = !statusFilter || handleStatusFlag(item) === statusFilter;
 
     return matchesSearch && matchesDateRange && matchesStatus;
-  });
+});
+
 
   // Atualiza o total de páginas com base nos dados filtrados
   const totalPages = Math.ceil(filteredData.length / itemsPerPage) || 1;
@@ -71,7 +73,7 @@ const ManagerReportDataTable = ({ data }) => {
       )}
       <div className="flex content-start gap-3">
         <div className="mb-4">
-          <label className="block mb-1">Buscar por CNPJ, Solicitante:</label>
+          <label className="block mb-1">Buscar por CNPJ, Solicitante ou Protocolo:</label>
           <input
             type="text"
             className="border rounded p-2 w-100"
