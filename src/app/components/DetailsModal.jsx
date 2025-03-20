@@ -2,17 +2,40 @@ import formatDate from "../utils/formatDate";
 import formatNumberToDecimal from "../utils/formatNumberToDecimal";
 import formatCNPJ from "../utils/formatCNPJ";
 import handleStatusFlag from "../utils/handleStatusFlag";
-import { AttachFile, Download, OpenWith, PlayCircle } from "@mui/icons-material";
+import { AttachFile, Download, InsertDriveFile, InsertDriveFileOutlined, OpenWith, PlayCircle } from "@mui/icons-material";
+import { useState } from "react";
 
 
 const DetailsModal = ({ item: selectedItem, onClose }) => {
+    const [isFullScreen, setIsFullScreen] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const handleRedirect = (protocolNumber, nf, index) => {
         const url = `https://faculdadeunimed-dev.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/downloadServiceFiles/?protocolo=${protocolNumber}&anexo=${nf}&index=${index}`;
         window.open(url, "_blank");
     };
+
+    const openFullScreen = (protocolNumber, nf, index) => {
+        const url = `https://faculdadeunimed-dev.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/downloadServiceFiles/?protocolo=${protocolNumber}&anexo=${nf}&index=${index}`;
+
+        setSelectedFile(url);
+        setIsFullScreen(true);
+    };
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center transition-opacity duration-300 opacity-100">
+            {isFullScreen && selectedFile && (
+                <div className="fixed top-0 left-0 w-full h-full bg-black/90 flex justify-center items-center z-50">
+                    <div className="relative w-full h-full flex flex-col">
+                        <button
+                            className="absolute top-3 right-4 bg-gray-700 text-white px-5 py-2 rounded-md cursor-pointer"
+                            onClick={() => setIsFullScreen(false)}
+                        >
+                            Fechar
+                        </button>
+                        <iframe src={selectedFile} className="w-full h-full"></iframe>
+                    </div>
+                </div>
+            )}
             <div className=" bg-white shadow-lg py-4 rounded-md w-240">
                 <h2 className="text-lg font-semibold text-gray-900 border-b border-gray-300 py-3 px-4 mb-4">
                     Detalhes da Solicitação # {selectedItem.protocolo}
@@ -95,7 +118,7 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                                                         </button>
                                                         <button
                                                             className="border border-gray-400  p-1 rounded hover:bg-gray-600 hover:text-white cursor-pointer"
-                                                            onClick={() => handleRedirect(selectedItem.protocolo, "solicitacao", index)}
+                                                            onClick={() => openFullScreen(selectedItem.protocolo, "solicitacao", index)}
                                                         >
                                                             <OpenWith sx={{ fontSize: 20 }} />
                                                         </button>
@@ -110,21 +133,32 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                                 <span className="text-sm">
                                     <strong>Nota Fiscal:</strong>
                                 </span>
-                                <div className="">
+                                <div className="flex w-90p">
                                     {selectedItem.anexoNF ? (
-                                        <div className="flex gap-2 p-1">
-                                            <AttachFile /> <span>{selectedItem.anexoNF.name} </span>
+                                        <div className="flex gap-2 p-1 items-center justify-between w-100">
 
-                                            <button
-                                                className="border p-1 rounded hover:bg-gray-600 hover:text-white cursor-pointer"
-                                                onClick={() => handleRedirect(selectedItem.protocolo, "nf")}
-                                            >
-                                                <Download sx={{ fontSize: 20 }} />
-                                            </button>
+                                            <span> <InsertDriveFileOutlined /> {selectedItem.anexoNF.name} </span>
+
+                                            <div className="flex gap-2">
+                                                <button
+                                                    className="border border-gray-400 p-1 rounded hover:bg-gray-600 hover:text-white cursor-pointer"
+                                                    onClick={() => handleRedirect(selectedItem.protocolo, "nf")}
+                                                >
+                                                    <Download sx={{ fontSize: 20 }} />
+                                                </button>
+                                                <button
+                                                    className="border border-gray-400  p-1 rounded hover:bg-gray-600 hover:text-white cursor-pointer"
+                                                    onClick={() => openFullScreen(selectedItem.protocolo, "nf")}
+                                                >
+                                                    <OpenWith sx={{ fontSize: 20 }} />
+                                                </button>
+                                            </div>
+
+
                                         </div>
                                     ) : (
                                         <span className="p-2">
-                                            Não enviada 
+                                            Não enviada
                                         </span>
                                     )}
                                 </div>

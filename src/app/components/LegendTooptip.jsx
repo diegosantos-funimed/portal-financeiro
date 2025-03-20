@@ -4,7 +4,7 @@ const LegendTooltip = () => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
-    <div className="relative flex justify-end p-2">
+    <div className=" flex justify-end p-2">
       <button
         className="btn"
         onMouseEnter={() => setShowTooltip(true)}
