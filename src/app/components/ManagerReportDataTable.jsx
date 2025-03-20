@@ -3,9 +3,10 @@ import formatDate from "../utils/formatDate";
 import formatNumberToDecimal from "../utils/formatNumberToDecimal";
 import formatCNPJ from "../utils/formatCNPJ";
 import LegendTooltip from "./LegendTooptip";
-import { Download, Visibility } from "@mui/icons-material";
+import { AttachMoney, Money, Visibility } from "@mui/icons-material";
 import handleStatusFlag from "../utils/handleStatusFlag";
 import DetailsModal from "./DetailsModal";
+import CostDetailsModal from "./CostDetailsModal";
 
 const ManagerReportDataTable = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,6 +16,7 @@ const ManagerReportDataTable = ({ data }) => {
   const [endDate, setEndDate] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [openModal, setModal] = useState(false);
+  const [openCostModal, setCostModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [showTooltip, setShowTooltip] = useState(false);
   const [selectedTooltip, setSelectedTooltip] = useState(null);
@@ -27,7 +29,7 @@ const ManagerReportDataTable = ({ data }) => {
 
     const matchesSearch =
       formatCNPJ(item.cnpj).includes(searchQuery) ||
-      item.solicitante.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      item.solicitante.toLowerCase().includes(searchQuery.toLowerCase()) ||
       formatDate(item.dataCriacao).includes(searchQuery) ||
       item.protocolo.toString().includes(searchQuery); // <-- Adicionado filtro pelo protocolo
 
@@ -36,7 +38,7 @@ const ManagerReportDataTable = ({ data }) => {
     const matchesStatus = !statusFilter || handleStatusFlag(item) === statusFilter;
 
     return matchesSearch && matchesDateRange && matchesStatus;
-});
+  });
 
 
   // Atualiza o total de páginas com base nos dados filtrados
@@ -61,11 +63,22 @@ const ManagerReportDataTable = ({ data }) => {
     setModal(true);
   };
 
+  const handleCostModal = (item) => {
+    setSelectedItem(item);
+    setCostModal(true);
+  }
+
   return (
     <div className="overflow-x-auto ">
+      {/* Modal geral */}
       {openModal && selectedItem && (
         <DetailsModal item={selectedItem} onClose={() => setModal(false)} />
       )}
+      {/* Modal de centro de custo */}
+      {openCostModal && selectedItem && (
+        <CostDetailsModal item={selectedItem} onClose={() => setCostModal(false)} />
+      )}
+      {/* Ficou parado */}
       {showTooltip && (
         <div className="absolute right-0 mt-6 w-80 p-2 bg-gray-800 text-white text-sm rounded transition-opacity">
           {selectedTooltip.status}
@@ -162,34 +175,24 @@ const ManagerReportDataTable = ({ data }) => {
                             "bg-green-500" : "bg-gray-500"}`}
                 ></span>
               </td>
-              {/* <td className="border p-2 text-center">
-                {item.anexo ? (
-                  <button
-                    className="border p-1 rounded bg-blue-300 cursor-pointer"
-                    onClick={() => handleRedirect(item.protocolo, "solicitacao")}
-                  >
-                    <Download sx={{ fontSize: 20 }} />
-                  </button>
-                ) : "Não"}
-              </td> */}
-              <td className=" py-3 text-center flex justify-center items-center">
-                {/* {item.anexoNF ? (
-                  <button
-                    className="border p-1 rounded bg-green-500 cursor-pointer"
-                    onClick={() => handleRedirect(item.protocolo, "nf")}
-                  >
-                    <Download sx={{ fontSize: 20 }} />
-                  </button>
-                ) : "Não"} */}
-                <td className="">
+              <td className="py-3 text-center flex justify-center items-center gap-2">
+                <button
+                  type="button"
+                  className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-blue-400 cursor-pointer"
+                  onClick={() => handleModal(item)}
+                >
+                  <Visibility />
+                </button>
+                {item.centroDeCusto !== "-" && (
                   <button
                     type="button"
-                    className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-green-700 cursor-pointer"
-                    onClick={() => handleModal(item)}
+                    className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-green-600 cursor-pointer"
+                    onClick={() => handleCostModal(item)}
                   >
-                    <Visibility />
+                    <AttachMoney />
                   </button>
-                </td>
+                )}
+
               </td>
             </tr>
 

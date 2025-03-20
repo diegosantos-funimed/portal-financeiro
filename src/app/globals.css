@@ -18,3 +18,7 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.w-90p{
+  width: 90%;
+}

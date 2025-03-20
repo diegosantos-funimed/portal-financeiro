@@ -2,18 +2,18 @@ import formatDate from "../utils/formatDate";
 import formatNumberToDecimal from "../utils/formatNumberToDecimal";
 import formatCNPJ from "../utils/formatCNPJ";
 import handleStatusFlag from "../utils/handleStatusFlag";
-import { Download } from "@mui/icons-material";
+import { AttachFile, Download, OpenWith, PlayCircle } from "@mui/icons-material";
 
 
 const DetailsModal = ({ item: selectedItem, onClose }) => {
 
-    const handleRedirect = (protocolNumber, nf) => {
-        const url = `https://faculdadeunimed-dev.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/downloadServiceFiles/?protocolo=${protocolNumber}&anexo=${nf}`;
+    const handleRedirect = (protocolNumber, nf, index) => {
+        const url = `https://faculdadeunimed-dev.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/downloadServiceFiles/?protocolo=${protocolNumber}&anexo=${nf}&index=${index}`;
         window.open(url, "_blank");
     };
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center transition-opacity duration-300 opacity-100">
-            <div className=" bg-white shadow-lg py-4 rounded-md w-200">
+            <div className=" bg-white shadow-lg py-4 rounded-md w-240">
                 <h2 className="text-lg font-semibold text-gray-900 border-b border-gray-300 py-3 px-4 mb-4">
                     Detalhes da Solicitação # {selectedItem.protocolo}
 
@@ -70,71 +70,68 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                                             "Nota paga" : "bg-gray-500"}</span>
                         </p>
                     </div>
-
-
                     <p className="text text-gray-700">
                         <strong>Descrição:</strong> {selectedItem.descricao}
                     </p>
-                    <div className="flex">
-                        <p className="text text-gray-700 w-1/2">
-                            <strong>Anexos</strong>
-                            <div className="flex flex-col">
+                    <p className="text text-gray-700">
+                        <strong>Anexos</strong>
+                        <div className="flex w-full">
+                            <div className="flex flex-col w-1/2">
                                 <div className="flex flex-col items-start">
                                     <span className="text-sm">
                                         <strong>Medição de serviço:</strong>
                                     </span>
-                                    <div className="flex gap-2">
-                                        {selectedItem.anexo ? (
-                                            <button
-                                                className="border p-1 rounded bg-green-500 cursor-pointer"
-                                                onClick={() => handleRedirect(selectedItem.protocolo, "solicitacao")}
-                                            >
-                                                <Download sx={{ fontSize: 20 }} />
-                                            </button>
-                                        ) : "Não"}
-
-
-                                    </div>
-
-                                </div>
-                                <div className="flex flex-col items-start">
-                                    <span className="text-sm">
-                                        <strong>Nota Fiscal:</strong>
-                                    </span>
-                                    <div className="">
-                                        {selectedItem.anexoNF ? (
-                                            <button
-                                                className="border p-1 rounded bg-blue-500 cursor-pointer"
-                                                onClick={() => handleRedirect(selectedItem.protocolo, "nf")}
-                                            >
-                                                <Download sx={{ fontSize: 20 }} />
-                                            </button>
-                                        ) : "Não enviada"}
-
-                                    </div>
-                                </div>
-                            </div>
-                        </p>
-                        <p className="text text-gray-700 w-1/2">
-                            {selectedItem.centroDeCusto !== "-" && (
-                                <div>
-                                    <strong>Centros de custo</strong>
-                                    <div className="flex flex-col gap-2">
-                                        {selectedItem.centroDeCusto.map((centro, index) => (
-                                            <div key={index} className="flex flex-col">
-                                                <span className="text-sm">
-                                                    <strong>Nome:</strong> {centro.codigoDoCentroDeCustos} / {centro.setor}
-                                                </span>
-                                                <span className="text-sm">
-                                                    <strong>Porcentagem:</strong>  {centro.porcentagem} %
-                                                </span>
+                                    <div className="flex flex-col gap-2  rounded w-90p">
+                                        {selectedItem.anexo.map((anexo, index) => (
+                                            <div key={index} className="flex gap-2 p-1 items-center justify-between ">
+                                                <span className="text-sm"><AttachFile /> {anexo.name} </span>
+                                                {selectedItem.anexo ? (
+                                                    <div className="flex gap-2">
+                                                        <button
+                                                            className="border border-gray-400 p-1 rounded hover:bg-gray-600 hover:text-white cursor-pointer"
+                                                            onClick={() => handleRedirect(selectedItem.protocolo, "solicitacao", index)}
+                                                        >
+                                                            <Download sx={{ fontSize: 20 }} />
+                                                        </button>
+                                                        <button
+                                                            className="border border-gray-400  p-1 rounded hover:bg-gray-600 hover:text-white cursor-pointer"
+                                                            onClick={() => handleRedirect(selectedItem.protocolo, "solicitacao", index)}
+                                                        >
+                                                            <OpenWith sx={{ fontSize: 20 }} />
+                                                        </button>
+                                                    </div>
+                                                ) : "Não"}
                                             </div>
                                         ))}
                                     </div>
                                 </div>
-                            )}
-                        </p>
-                    </div>
+                            </div>
+                            <div className="flex flex-col items-start w-1/2">
+                                <span className="text-sm">
+                                    <strong>Nota Fiscal:</strong>
+                                </span>
+                                <div className="">
+                                    {selectedItem.anexoNF ? (
+                                        <div className="flex gap-2 p-1">
+                                            <AttachFile /> <span>{selectedItem.anexoNF.name} </span>
+
+                                            <button
+                                                className="border p-1 rounded hover:bg-gray-600 hover:text-white cursor-pointer"
+                                                onClick={() => handleRedirect(selectedItem.protocolo, "nf")}
+                                            >
+                                                <Download sx={{ fontSize: 20 }} />
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <span className="p-2">
+                                            Não enviada 
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                    </p>
 
                 </div>
                 <div className="border-t border-gray-300 flex justify-between items-center px-4 pt-2">
