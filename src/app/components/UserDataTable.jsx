@@ -85,7 +85,7 @@ const DataTable = ({ data }) => {
           {currentData.map((item) => (
             <tr key={item._id} className="border hover:bg-gray-100">
               <td className="border p-2 text-center">{item.protocolo}</td>
-              <td className="border p-2 text-center">{item.etapa}</td>
+              <td className="border p-2 text-center">{item.aprovadoNF && item.aprovadoSolicitacao ? "Aprovado" : item.etapa}</td>
               <td className="border p-2 text-center">{formatDate(item.data)}</td>
               <td className="border p-2 text-center">{formatDate(item.dataAtualizacao)}</td>
               <td className="border p-2 text-center">{item.aprovador ?? "-"}</td>
