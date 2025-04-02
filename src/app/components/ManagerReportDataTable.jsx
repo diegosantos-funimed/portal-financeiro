@@ -140,7 +140,7 @@ const ManagerReportDataTable = ({ data }) => {
         <thead>
           <tr className="bg-gray-200 text-gray-700">
             <th className="border p-2">#</th>
-            <th className="border p-2">CNPJ - Solicitante</th>
+            <th className="border p-2">CNPJ - Fornecedor</th>
             <th className="border p-2">Data de abertura</th>
             <th className="border p-2">Ultima atualização</th>
             <th className="border p-2">Descrição</th>
