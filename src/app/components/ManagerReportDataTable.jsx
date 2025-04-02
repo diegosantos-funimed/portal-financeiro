@@ -175,7 +175,7 @@ const ManagerReportDataTable = ({ data }) => {
                             "bg-green-500" : "bg-gray-500"}`}
                 ></span>
               </td>
-              <td className="py-3 text-center flex justify-center items-center gap-2">
+              <td className="py-3 px-1 text-center flex justify-center items-center gap-2">
                 <button
                   type="button"
                   className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-blue-400 cursor-pointer"

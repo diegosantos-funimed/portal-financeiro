@@ -1,7 +1,10 @@
-const YearReportData = ({ data }) => {
-    console.log(data);
+import React from "react";
+import formatCNPJ from "../utils/formatCNPJ";
 
+const YearReportData = ({ data }) => {
     const meses = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"];
+
+    const getMonthIndex = (dateStr) => new Date(dateStr).getMonth();
 
     return (
         <div className="container mx-auto">
@@ -16,62 +19,37 @@ const YearReportData = ({ data }) => {
                 </thead>
                 <tbody>
                     {data.map((fornecedor) => {
-                        // Criando um objeto para armazenar o status de cada mês
-                        {data.map((fornecedor) => {
-                            // Convertendo inicioDaCobranca para um Date comparável
-                            const inicio = new Date(fornecedor.inicioDaCobranca + "-01");
-                        
-                            const statusMeses = meses.reduce((acc, mes) => {
-                                const dataMes = new Date("2024-" + mes + "-01"); // Supondo ano fixo ou ajustável
-                        
-                                if (dataMes < inicio) {
-                                    acc[mes] = "bg-gray-300"; // Antes da cobrança: cinza
-                                } else {
-                                    const envio = fornecedor.envios.find(e => e.mes.toUpperCase().startsWith(mes));
-                                    if (envio) {
-                                        acc[mes] = envio.aprovada
-                                            ? "bg-green-500"
-                                            : envio.aprovada === null
-                                            ? "bg-yellow-300"
-                                            : "bg-red-500";
-                                    } else {
-                                        acc[mes] = "bg-red-500"; // Após início e sem envio: vermelho
-                                    }
-                                }
-                        
-                                return acc;
-                            }, {});
-                        
-                            return (
-                                <tr key={fornecedor.cnpj} className="border hover:bg-gray-100">
-                                    <td className="border p-2 text-center">
-                                        {fornecedor.cnpj}
-                                        <br />
-                                        {fornecedor.nome}
-                                    </td>
-                                    {meses.map((mes) => (
-                                        <td key={mes} className="border p-2 text-center">
-                                            <span
-                                                className={`inline-block w-7 h-7 rounded-full border ${statusMeses[mes]}`}
-                                            ></span>
-                                        </td>
-                                    ))}
-                                </tr>
-                            );
-                        })}
-                        
+                        const inicioDate = new Date(fornecedor.inicioDaCobranca);
+                        const anoReferencia = inicioDate.getFullYear();
+
+                        const statusMeses = meses.map((mes, index) => {
+                            const mesIndex = index;
+                            const dataReferencia = new Date(anoReferencia, mesIndex, 1);
+
+                            // Se mês é anterior ao início da cobrança → cinza
+                            if (dataReferencia < new Date(inicioDate.getFullYear(), inicioDate.getMonth(), 1)) {
+                                return "bg-gray-300";
+                            }
+
+                            // Verifica se existe envio neste mês
+                            const houveEnvio = fornecedor.envios.some((envio) => {
+                                const envioDate = new Date(envio.dataCriacao);
+                                return envioDate.getMonth() === mesIndex && envioDate.getFullYear() === anoReferencia;
+                            });
+
+                            return houveEnvio ? "bg-green-500" : "bg-red-500";
+                        });
+
                         return (
                             <tr key={fornecedor.cnpj} className="border hover:bg-gray-100">
                                 <td className="border p-2 text-center">
-                                    {fornecedor.cnpj}
+                                    {formatCNPJ(fornecedor.cnpj)} - 
                                     <br />
-                                    {fornecedor.nome}
+                                    {fornecedor.name}
                                 </td>
-                                {meses.map((mes) => (
-                                    <td key={mes} className={`border p-2 text-center `}>
-                                        <span
-                                            className={`inline-block w-7 h-7 rounded-full border ${statusMeses[mes]}`}
-                                        ></span>
+                                {statusMeses.map((cor, i) => (
+                                    <td key={i} className="border p-2 text-center">
+                                        <span className={`inline-block w-7 h-7 rounded-full border ${cor}`}></span>
                                     </td>
                                 ))}
                             </tr>
