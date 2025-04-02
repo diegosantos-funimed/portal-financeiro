@@ -39,7 +39,7 @@ export default function ReportPage() {
         }
 
         fetchData();
-    }, []); 
+    }, []);
 
 
     return (

@@ -11,16 +11,24 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
     const [selectedFile, setSelectedFile] = useState(null);
 
     const handleRedirect = (protocolNumber, nf, index) => {
-        const url = `https://faculdadeunimed-dev.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/downloadServiceFiles/?protocolo=${protocolNumber}&anexo=${nf}&index=${index}`;
+        const url = `https://faculdadeunimed.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/downloadServiceFiles/?protocolo=${protocolNumber}&anexo=${nf}&index=${index}`;
         window.open(url, "_blank");
     };
 
     const openFullScreen = (protocolNumber, nf, index) => {
-        const url = `https://faculdadeunimed-dev.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/downloadServiceFiles/?protocolo=${protocolNumber}&anexo=${nf}&index=${index}`;
+        const url = `https://faculdadeunimed.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/downloadServiceFiles/?protocolo=${protocolNumber}&anexo=${nf}&index=${index}`;
 
         setSelectedFile(url);
         setIsFullScreen(true);
     };
+
+    function isInvalidFileExtension(fileName) {
+        const allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'tiff'];
+        const extension = fileName.split('.').pop().toLowerCase();
+
+        return !allowedExtensions.includes(extension);
+    }
+
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center transition-opacity duration-300 opacity-100">
             {isFullScreen && selectedFile && (
@@ -116,12 +124,15 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                                                         >
                                                             <Download sx={{ fontSize: 20 }} />
                                                         </button>
-                                                        <button
-                                                            className="border border-gray-400  p-1 rounded hover:bg-gray-600 hover:text-white cursor-pointer"
-                                                            onClick={() => openFullScreen(selectedItem.protocolo, "solicitacao", index)}
-                                                        >
-                                                            <OpenWith sx={{ fontSize: 20 }} />
-                                                        </button>
+                                                        {!isInvalidFileExtension(anexo.name) && (
+                                                            <button
+                                                                className="border border-gray-400  p-1 rounded hover:bg-gray-600 hover:text-white cursor-pointer"
+                                                                onClick={() => openFullScreen(selectedItem.protocolo, "solicitacao", index)}
+                                                            >
+                                                                <OpenWith sx={{ fontSize: 20 }} />
+                                                            </button>
+                                                        )}
+
                                                     </div>
                                                 ) : "Não"}
                                             </div>

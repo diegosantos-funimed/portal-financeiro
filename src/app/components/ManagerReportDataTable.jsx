@@ -154,7 +154,7 @@ const ManagerReportDataTable = ({ data }) => {
           {currentData.map((item) => (
             <tr key={item._id} className="border hover:bg-gray-100">
               <td className="border p-2 text-center">{item.protocolo}</td>
-              <td className="border p-2 text-center">{formatCNPJ(item.cnpj)} - <br /> {item.solicitante} </td>
+              <td className="border p-2 text-center">{formatCNPJ(item.cnpj)} - <br /> {item.fornecedor} </td>
               <td className="border p-2 text-center">{formatDate(item.dataCriacao)}</td>
               <td className="border p-2 text-center">{formatDate(item.dataAtualizacao)}</td>
 
