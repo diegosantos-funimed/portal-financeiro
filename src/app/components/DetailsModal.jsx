@@ -50,15 +50,18 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
 
                 </h2>
                 <div className="px-5 pb-4">
-                    <div className="flex">
-                        <p className="text text-gray-700 w-1/2">
-                            <strong>CNPJ:</strong> {formatCNPJ(selectedItem.cnpj)}
+                    <div className="flex border p-1">
+                        <p className="text text-gray-700 w-full">
+                            <strong>Fornecedor :</strong> {formatCNPJ(selectedItem.cnpj)} - {selectedItem.fornecedor}
                         </p>
-                        <p className="text text-gray-700 w-1/2">
+                       
+                    </div>
+                    <div className="flex border-l border-r p-1">
+                    <p className="text text-gray-700 w-1/2">
                             <strong>Solicitante:</strong> {selectedItem.solicitante}
                         </p>
                     </div>
-                    <div className="flex">
+                    <div className="flex border p-1">
                         <p className="text text-gray-700 w-1/2">
                             <strong>Área responsável:</strong> {selectedItem.areaResponsavel}
                         </p>
@@ -66,7 +69,7 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                             <strong>Aprovador:</strong> {selectedItem.aprovador}
                         </p>
                     </div>
-                    <div className="flex ">
+                    <div className="flex border-r border-l p-1 ">
                         <p className="text text-gray-700 w-1/2">
                             <strong>Data de Abertura:</strong> {formatDate(selectedItem.dataCriacao)}
                         </p>
@@ -74,7 +77,7 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                             <strong>Última Atualização:</strong> {formatDate(selectedItem.dataAtualizacao)}
                         </p>
                     </div>
-                    <div className="flex ">
+                    <div className="flex border p-1">
                         <p className="text text-gray-700 w-1/2">
                             <strong>Valor:</strong> R$ {formatNumberToDecimal(selectedItem.valor)}
                         </p>
@@ -101,10 +104,10 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                                             "Nota paga" : "bg-gray-500"}</span>
                         </p>
                     </div>
-                    <p className="text text-gray-700">
+                    <p className="text text-gray-700 border-l border-r  p-1">
                         <strong>Descrição:</strong> {selectedItem.descricao}
                     </p>
-                    <p className="text text-gray-700">
+                    <p className="text text-gray-700 border p-2">
                         <strong>Anexos</strong>
                         <div className="flex w-full">
                             <div className="flex flex-col w-1/2">
