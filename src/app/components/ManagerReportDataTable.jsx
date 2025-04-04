@@ -143,6 +143,7 @@ const ManagerReportDataTable = ({ data }) => {
             <th className="border p-2">CNPJ - Fornecedor</th>
             <th className="border p-2">Data de abertura</th>
             <th className="border p-2">Ultima atualização</th>
+            <th className="border p-2">Aréa responsável</th>
             <th className="border p-2">Descrição</th>
             <th className="border p-2">Valor</th>
             <th className="border p-2">Status</th>
@@ -157,7 +158,7 @@ const ManagerReportDataTable = ({ data }) => {
               <td className="border p-2 text-center">{formatCNPJ(item.cnpj)} - <br /> {item.fornecedor} </td>
               <td className="border p-2 text-center">{formatDate(item.dataCriacao)}</td>
               <td className="border p-2 text-center">{formatDate(item.dataAtualizacao)}</td>
-
+              <td className="border p-2 text-center">{item.areaResponsavel}</td>
               <td className="border p-2 text-center">
                 {item.descricao.length > 30 ? `${item.descricao.substring(0, 30)}...` : item.descricao}
               </td>
