@@ -20,12 +20,15 @@ const ManagerReportDataTable = ({ data }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showTooltip, setShowTooltip] = useState(false);
   const [selectedTooltip, setSelectedTooltip] = useState(null);
+  const [areaResponsavelQuery, setAreaResponsavelQuery] = useState("");
 
   // Filtrando os dados
   const filteredData = data.filter((item) => {
     const itemDate = new Date(item.dataCriacao);
     const start = startDate ? new Date(startDate) : null;
     const end = endDate ? new Date(endDate) : null;
+    const matchesAreaResponsavel = !areaResponsavelQuery || item.areaResponsavel?.toLowerCase().includes(areaResponsavelQuery.toLowerCase());
+
 
     const matchesSearch =
       formatCNPJ(item.cnpj).includes(searchQuery) ||
@@ -37,7 +40,7 @@ const ManagerReportDataTable = ({ data }) => {
 
     const matchesStatus = !statusFilter || handleStatusFlag(item) === statusFilter;
 
-    return matchesSearch && matchesDateRange && matchesStatus;
+    return matchesSearch && matchesDateRange && matchesStatus && matchesAreaResponsavel;
   });
 
 
@@ -114,6 +117,19 @@ const ManagerReportDataTable = ({ data }) => {
               onChange={(e) => setEndDate(e.target.value)}
             />
           </div>
+        </div>
+        <div className="flex mb-4">
+          <div className="mb-4">
+            <label className="block mb-1">Área responsável</label>
+            <input
+              type="text"
+              className="border rounded p-2 w-100"
+              placeholder="Digite para buscar..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+
         </div>
         <div className="flex mb-4 flex-col">
           <label className="block mb-1">Status:</label>
