@@ -118,7 +118,7 @@ const ManagerReportDataTable = ({ data }) => {
             />
           </div>
         </div>
-        <div className="flex mb-4">
+        {/* <div className="flex mb-4">
           <div className="mb-4">
             <label className="block mb-1">Área responsável</label>
             <input
@@ -129,8 +129,7 @@ const ManagerReportDataTable = ({ data }) => {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-
-        </div>
+        </div> */}
         <div className="flex mb-4 flex-col">
           <label className="block mb-1">Status:</label>
           <select
