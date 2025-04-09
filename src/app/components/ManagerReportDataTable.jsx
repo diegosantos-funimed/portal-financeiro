@@ -27,20 +27,20 @@ const ManagerReportDataTable = ({ data }) => {
     const itemDate = new Date(item.dataCriacao);
     const start = startDate ? new Date(startDate) : null;
     const end = endDate ? new Date(endDate) : null;
-    const matchesAreaResponsavel = !areaResponsavelQuery || item.areaResponsavel?.toLowerCase().includes(areaResponsavelQuery.toLowerCase());
-
 
     const matchesSearch =
+      !searchQuery ||
       formatCNPJ(item.cnpj).includes(searchQuery) ||
       item.solicitante.toLowerCase().includes(searchQuery.toLowerCase()) ||
       formatDate(item.dataCriacao).includes(searchQuery) ||
-      item.protocolo.toString().includes(searchQuery); // <-- Adicionado filtro pelo protocolo
+      item.protocolo.toString().includes(searchQuery) ||
+      item.areaResponsavel?.toLowerCase().includes(searchQuery.toLowerCase()); // <-- Incluído filtro para área responsável
 
     const matchesDateRange = (!start || itemDate >= start) && (!end || itemDate <= end);
 
     const matchesStatus = !statusFilter || handleStatusFlag(item) === statusFilter;
 
-    return matchesSearch && matchesDateRange && matchesStatus && matchesAreaResponsavel;
+    return matchesSearch && matchesDateRange && matchesStatus;
   });
 
 
@@ -89,15 +89,16 @@ const ManagerReportDataTable = ({ data }) => {
       )}
       <div className="flex content-start gap-3">
         <div className="mb-4">
-          <label className="block mb-1">Buscar por CNPJ, Solicitante ou Protocolo:</label>
+          <label className="block mb-1">Buscar por CNPJ, Solicitante, Protocolo ou Área responsável:</label>
           <input
             type="text"
-            className="border rounded p-2 w-100"
+            className="border rounded p-2 w-120"
             placeholder="Digite para buscar..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
+      
         <div className="flex gap-4 mb-4">
           <div>
             <label className="block mb-1">Data Inicial:</label>
@@ -118,18 +119,7 @@ const ManagerReportDataTable = ({ data }) => {
             />
           </div>
         </div>
-        {/* <div className="flex mb-4">
-          <div className="mb-4">
-            <label className="block mb-1">Área responsável</label>
-            <input
-              type="text"
-              className="border rounded p-2 w-100"
-              placeholder="Digite para buscar..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-        </div> */}
+        
         <div className="flex mb-4 flex-col">
           <label className="block mb-1">Status:</label>
           <select
@@ -143,7 +133,7 @@ const ManagerReportDataTable = ({ data }) => {
             <option value="not_send">Não enviada</option>
             <option value="reproved">Reprovada</option>
             <option value="approved">Aprovada</option>
-            <option value="paid">Pago</option>
+            <option value="paid">Lançado TOTVS</option>
           </select>
         </div>
         <div className="w-full mb-4 self-center">
@@ -180,7 +170,7 @@ const ManagerReportDataTable = ({ data }) => {
               <td className="border p-2 text-center">R$ {formatNumberToDecimal(item.valor)}</td>
               <td className="border p-2 text-center">
                 <span
-                  className={`inline-block w-3 h-3 rounded-full 
+                  className={`inline-block w-3 h-3 p-2 border rounded-full 
                     ${handleStatusFlag(item) === "not_send" ?
                       "bg-red-500" :
                       handleStatusFlag(item) === "reproved" ?

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import formatDate from "../utils/formatDate";
+import * as Tooltip from '@radix-ui/react-tooltip'
 
 const DataTable = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -91,12 +92,42 @@ const DataTable = ({ data }) => {
               <td className="border p-2 text-center">{item.aprovador ?? "-"}</td>
               <td className="border p-2 text-center">{item.areaResponsavel ?? "-"}</td>
               <td className="border p-2 text-center">
-                <span className={`inline-block w-3 h-3 rounded-full ${item.aprovadoSolicitacao ? "bg-green-500" : "bg-red-500"}`}>
-                </span>
+
+                <Tooltip.Provider>
+                  <Tooltip.Root>
+                    <Tooltip.Trigger asChild>
+                      <span className={`inline-block w-3 h-3 border p-2 hover:cursor-pointer rounded-full ${item.aprovadoSolicitacao ? "bg-green-500" : "bg-red-500"}`}>
+                      </span>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content
+                      className="bg-gray-800 text-white px-3 py-2 rounded text-sm shadow-lg"
+                      side="top"
+                      sideOffset={5}
+                    >
+                      {item.aprovadoSolicitacao ? "Medição aprovada" : "Medição pendente aprovação"}
+                      <Tooltip.Arrow className="fill-gray-800" />
+                    </Tooltip.Content>
+                  </Tooltip.Root>
+                </Tooltip.Provider>
               </td>
               <td className="border p-2 text-center">
-                <span className={`inline-block w-3 h-3 rounded-full ${item.aprovadoNF ? "bg-green-500" : "bg-red-500"}`}>
-                </span>
+                <Tooltip.Provider>
+                  <Tooltip.Root>
+                    <Tooltip.Trigger asChild>
+                    <span className={`inline-block w-3 h-3 border p-2 hover:cursor-pointer rounded-full ${item.aprovadoNF ? "bg-green-500" : "bg-red-500"}`}>
+                    </span>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content
+                      className="bg-gray-800 text-white px-3 py-2 rounded text-sm shadow-lg"
+                      side="top"
+                      sideOffset={5}
+                    >
+                      {item.aprovadoNF ? "Nota fiscal aprovada" : "Nota fiscal pendente aprovação"}
+                      <Tooltip.Arrow className="fill-gray-800" />
+                    </Tooltip.Content>
+                  </Tooltip.Root>
+                </Tooltip.Provider>
+
               </td>
             </tr>
           ))}
