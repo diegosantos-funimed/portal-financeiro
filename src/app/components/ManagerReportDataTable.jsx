@@ -130,10 +130,10 @@ const ManagerReportDataTable = ({ data }) => {
             onChange={(e) => setStatusFilter(e.target.value)}
           >
             <option value="">Selecione uma opção</option>
-            <option value="not_send">Não enviada</option>
-            <option value="reproved">Reprovada</option>
-            <option value="approved">Aprovada</option>
-            <option value="paid">Lançado TOTVS</option>
+            <option value="not_send">NF Pendente ou Medição reprovada</option>
+            <option value="sended">NF enviada</option>
+            <option value="totvs_id">Lançamento TOTVs realizado</option>
+            <option value="finished">Aprovado e lançado no TOTVS</option>
           </select>
         </div>
         <div className="w-full mb-4 self-center">
