@@ -1,13 +1,13 @@
-export default function handleStatusFlag(ticket){
-    if (ticket.anexoNF === null) {
-        return "not_send"
-    } else if (ticket.anexoNF && ticket.aprovadoNF === null){
-        return "reproved"
-    } else if (ticket.aprovadoNF === true){
-        return "approved"
-    } else if (ticket.paid === true){
-        return "paid"
+export default function handleStatusFlag(ticket) {
+    if (ticket.aprovadoNF && ticket.lancamentoTOTVS) {
+        return "finished";
+    } else if (ticket.lancamentoTOTVS) {
+        return "totvs_id";
+    } else if (!ticket.anexoNF) {
+        return "not_send";
+    } else if (ticket.anexoNF) {
+        return "sended";
     } else {
-        return "pending"
+        return "pending";
     }
 }

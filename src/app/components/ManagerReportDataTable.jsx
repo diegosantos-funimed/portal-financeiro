@@ -173,13 +173,14 @@ const ManagerReportDataTable = ({ data }) => {
                   className={`inline-block w-3 h-3 p-2 border rounded-full 
                     ${handleStatusFlag(item) === "not_send" ?
                       "bg-red-500" :
-                      handleStatusFlag(item) === "reproved" ?
+                      handleStatusFlag(item) === "sended" ?
                         "bg-yellow-500" :
-                        handleStatusFlag(item) === "approved" ?
+                        handleStatusFlag(item) === "totvs_id" ?
                           "bg-blue-500" :
-                          handleStatusFlag(item) === "paid" ?
+                          handleStatusFlag(item) === "finished" ?
                             "bg-green-500" : "bg-gray-500"}`}
                 ></span>
+           
               </td>
               <td className="py-3 px-1 text-center flex justify-center items-center gap-2">
                 <button

@@ -56,8 +56,8 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                         </p>
                        
                     </div>
-                    <div className="flex border-l border-r p-1">
-                    <p className="text text-gray-700 w-1/2">
+                    <div className="flex border-l border-r p-1 bg-gray-200">
+                    <p className="text text-gray-700 ">
                             <strong>Solicitante:</strong> {selectedItem.solicitante}
                         </p>
                     </div>
@@ -69,7 +69,7 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                             <strong>Aprovador:</strong> {selectedItem.aprovador}
                         </p>
                     </div>
-                    <div className="flex border-r border-l p-1 ">
+                    <div className="flex border-r border-l p-1 bg-gray-200 ">
                         <p className="text text-gray-700 w-1/2">
                             <strong>Data de Abertura:</strong> {formatDate(selectedItem.dataCriacao)}
                         </p>
@@ -86,28 +86,28 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                                 className={`inline-block  w-4 h-4 rounded-full border
                     ${handleStatusFlag(selectedItem) === "not_send" ?
                                         "bg-red-500" :
-                                        handleStatusFlag(selectedItem) === "reproved" ?
+                                        handleStatusFlag(selectedItem) === "sended" ?
                                             "bg-yellow-500" :
-                                            handleStatusFlag(selectedItem) === "approved" ?
+                                            handleStatusFlag(selectedItem) === "totvs_id" ?
                                                 "bg-blue-500" :
-                                                handleStatusFlag(selectedItem) === "paid" ?
+                                                handleStatusFlag(selectedItem) === "finished" ?
                                                     "bg-green-500" : "bg-gray-500"}`}
 
                             ></span>
                             <span> - {handleStatusFlag(selectedItem) === "not_send" ?
-                                "Nota não enviada ou medição reprovada" :
-                                handleStatusFlag(selectedItem) === "reproved" ?
-                                    "Nota enviada ou reprovada" :
-                                    handleStatusFlag(selectedItem) === "approved" ?
-                                        "Nota aprovada" :
-                                        handleStatusFlag(selectedItem) === "paid" ?
-                                            "Nota paga" : "bg-gray-500"}</span>
+                                "NF Pendente ou Medição reprovada" :
+                                handleStatusFlag(selectedItem) === "sended" ?
+                                    "NF Enviada" :
+                                    handleStatusFlag(selectedItem) === "totvs_id" ?
+                                        "Lançamento TOTVs realizado" :
+                                        handleStatusFlag(selectedItem) === "finished" ?
+                                            "NF validada e Processo finalizado" : "Erro"}</span>
                         </p>
                     </div>
-                    <p className="text text-gray-700 border-l border-r  p-1">
+                    <p className="text text-gray-700 border-l border-r bg-gray-200  p-1">
                         <strong>Descrição:</strong> {selectedItem.descricao}
                     </p>
-                    <p className="text text-gray-700 border p-2">
+                    <p className="text text-gray-700 border p-2 ">
                         <strong>Anexos</strong>
                         <div className="flex w-full">
                             <div className="flex flex-col w-1/2">

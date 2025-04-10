@@ -21,15 +21,15 @@ const LegendTooltip = () => {
             <div className="space-y-1">
               <div className="flex items-center gap-1">
                 <span className="inline-block w-4 h-4 border rounded-full bg-red-500"></span>
-                - Nota não enviada ou medição reprovada
+                - NF Pendente ou Medição reprovada
               </div>
               <div className="flex items-center gap-1">
                 <span className="inline-block w-4 h-4 border rounded-full bg-yellow-500"></span>
-                - Nota enviada ou reprovada
+                - NF enviada
               </div>
               <div className="flex items-center gap-1">
                 <span className="inline-block w-4 h-4 border rounded-full bg-blue-500"></span>
-                - Nota enviada e aprovada
+                - Lançamento TOTVs realizado
               </div>
               <div className="flex items-center gap-1">
                 <span className="inline-block w-4 h-4 border rounded-full bg-green-500"></span>
