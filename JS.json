@@ -1,0 +1,78 @@
+{
+	"body": {
+		"totalCarregado": 800,
+		"totalMapeado": 800,
+		"amostra": [
+			{
+				"summary": "PDI | PRIMEIRO TRISMESTRE FEEDBACK",
+				"parent": "2025 | MAYRA | ENTRTEGAS",
+				"creator": "mayraaraujo",
+				"created": "2025-04-15T15:14:37.968-0300",
+				"resolutionDate": "",
+				"lastUpdate": "2025-04-15T15:15:15.306-0300",
+				"assignee": "mayraaraujo",
+				"priority": "Medium",
+				"category": "Totvs",
+				"subcategory": "Governança TI",
+				"key": "FU-872",
+				"status": "Em andamento"
+			},
+			{
+				"summary": "PDI | PRIMEIRO TRISMESTRE",
+				"parent": "2025 | MAYRA | ENTRTEGAS",
+				"creator": "mayraaraujo",
+				"created": "2025-04-15T15:12:59.747-0300",
+				"resolutionDate": "2025-04-15T15:13:40.397-0300",
+				"lastUpdate": "2025-04-15T15:13:40.422-0300",
+				"assignee": "mayraaraujo",
+				"priority": "Medium",
+				"category": "Totvs",
+				"subcategory": "Governança TI",
+				"key": "FU-871",
+				"status": "Itens concluídos"
+			},
+			{
+				"summary": "Projeto Omni",
+				"parent": "",
+				"creator": "Ângelo Antônio M. Albuquerque Lopes",
+				"created": "2025-04-15T14:32:46.395-0300",
+				"resolutionDate": "",
+				"lastUpdate": "2025-04-15T14:39:49.350-0300",
+				"assignee": "Ângelo Antônio M. Albuquerque Lopes",
+				"priority": "Highest",
+				"category": "Dados",
+				"subcategory": "Governança TI",
+				"key": "FU-870",
+				"status": "Em andamento"
+			},
+			{
+				"summary": "Cloud 22570282 | Revitalização de API e Formula Visual Terceiros",
+				"parent": "CLOUD 22570282 | MIGRAÇÃO AMBIENTE TOTVS",
+				"creator": "mayraaraujo",
+				"created": "2025-04-15T14:02:09.877-0300",
+				"resolutionDate": "",
+				"lastUpdate": "2025-04-15T14:08:50.950-0300",
+				"assignee": "mayraaraujo",
+				"priority": "Medium",
+				"category": "Totvs",
+				"subcategory": "Totvs - Integração externa",
+				"key": "FU-869",
+				"status": "Em andamento"
+			},
+			{
+				"summary": "Criar endpoint da API do Jira",
+				"parent": "2025 | Atividades Diversas | Diego Pedro",
+				"creator": "Diego Pedro dos Santos",
+				"created": "2025-04-15T13:40:29.274-0300",
+				"resolutionDate": "2025-04-15T13:40:40.273-0300",
+				"lastUpdate": "2025-04-15T13:40:40.282-0300",
+				"assignee": "Diego Pedro dos Santos",
+				"priority": "Medium",
+				"category": "Dados",
+				"subcategory": "Atendimentos | Atividades | Tickets",
+				"key": "FU-868",
+				"status": "Itens concluídos"
+			}
+		]
+	}
+}

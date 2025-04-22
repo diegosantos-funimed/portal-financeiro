@@ -14,12 +14,11 @@ export default function AccordionFAQ() {
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4 space-y-4">
-      <h2 className="text-2xl font-bold mb-4">Perguntas Frequentes</h2>
       {faqData.map((item, index) => (
-        <div key={index} className="border rounded-lg shadow">
+        <div key={index} className="border rounded-lg shadow ">
           <button
             onClick={() => toggle(index)}
-            className="w-full flex justify-between items-center p-4 text-left"
+            className="w-full flex justify-between items-center p-4 text-left hover:cursor-pointer"
           >
             <span className="text-lg font-medium">{item.question}</span>
             {openIndex === index ? (
