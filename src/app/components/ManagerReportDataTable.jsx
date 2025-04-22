@@ -8,7 +8,7 @@ import handleStatusFlag from "../utils/handleStatusFlag";
 import DetailsModal from "./DetailsModal";
 import CostDetailsModal from "./CostDetailsModal";
 
-const ManagerReportDataTable = ({ data }) => {
+const ManagerReportDataTable = ({ data, isFilteredData }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [searchQuery, setSearchQuery] = useState("");
@@ -87,59 +87,62 @@ const ManagerReportDataTable = ({ data }) => {
           {selectedTooltip.status}
         </div>
       )}
-      <div className="flex content-start gap-3">
-        <div className="mb-4">
-          <label className="block mb-1">Buscar por CNPJ, Solicitante, Protocolo ou Área responsável:</label>
-          <input
-            type="text"
-            className="border rounded p-2 w-120"
-            placeholder="Digite para buscar..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-      
-        <div className="flex gap-4 mb-4">
-          <div>
-            <label className="block mb-1">Data Inicial:</label>
+      {!isFilteredData && (
+        <div className="flex content-start gap-3">
+          <div className="mb-4">
+            <label className="block mb-1">Buscar por CNPJ, Solicitante, Protocolo ou Área responsável:</label>
             <input
-              type="date"
-              className="border rounded p-2"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
+              type="text"
+              className="border rounded p-2 w-120"
+              placeholder="Digite para buscar..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          <div>
-            <label className="block mb-1">Data Final:</label>
-            <input
-              type="date"
-              className="border rounded p-2"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-            />
+
+          <div className="flex gap-4 mb-4">
+            <div>
+              <label className="block mb-1">Data Inicial:</label>
+              <input
+                type="date"
+                className="border rounded p-2"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="block mb-1">Data Final:</label>
+              <input
+                type="date"
+                className="border rounded p-2"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="flex mb-4 flex-col">
+            <label className="block mb-1">Status:</label>
+            <select
+              name="status_filter"
+              id="status_filter"
+              className="border rounded p-2 w-50"
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+            >
+              <option value="">Selecione uma opção</option>
+              <option value="not_send">NF Pendente ou Medição reprovada</option>
+              <option value="sended">NF enviada</option>
+              <option value="totvs_id">Lançamento TOTVs realizado</option>
+              <option value="finished">Aprovado e lançado no TOTVS</option>
+            </select>
+          </div>
+          <div className="w-full mb-4 self-center">
+            <LegendTooltip />
           </div>
         </div>
-        
-        <div className="flex mb-4 flex-col">
-          <label className="block mb-1">Status:</label>
-          <select
-            name="status_filter"
-            id="status_filter"
-            className="border rounded p-2 w-50"
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-          >
-            <option value="">Selecione uma opção</option>
-            <option value="not_send">NF Pendente ou Medição reprovada</option>
-            <option value="sended">NF enviada</option>
-            <option value="totvs_id">Lançamento TOTVs realizado</option>
-            <option value="finished">Aprovado e lançado no TOTVS</option>
-          </select>
-        </div>
-        <div className="w-full mb-4 self-center">
-          <LegendTooltip />
-        </div>
-      </div>
+      )}
+
 
       <table className="min-w-full border border-gray-300 ">
         <thead>
@@ -180,7 +183,7 @@ const ManagerReportDataTable = ({ data }) => {
                           handleStatusFlag(item) === "finished" ?
                             "bg-green-500" : "bg-gray-500"}`}
                 ></span>
-           
+
               </td>
               <td className="py-3 px-1 text-center flex justify-center items-center gap-2">
                 <button

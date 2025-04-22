@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-const YearReportData = ({ data }) => {
+const YearReportData = ({ data, onSelect }) => {
     const meses = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"];
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
-    const rowsPerPage = 5;
+    const rowsPerPage = 10;
 
     // 🔍 Aplica o filtro por nome ou CNPJ
     const filteredData = data.filter((fornecedor) => {
@@ -28,7 +28,7 @@ const YearReportData = ({ data }) => {
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
-        setCurrentPage(1); // volta pra página 1 ao digitar
+        setCurrentPage(1); // volta pra página 1 ao k
     };
 
     return (
@@ -83,7 +83,12 @@ const YearReportData = ({ data }) => {
                                 </td>
                                 {statusMeses.map((cor, i) => (
                                     <td key={i} className="border p-2 text-center">
-                                        <span className={`inline-block w-7 h-7 rounded-full border ${cor}`}></span>
+                                        <button
+                                            className={`inline-block w-7 h-7 rounded-full hover:cursor-pointer border ${cor}`}
+                                            onClick={() => onSelect(fornecedor.cnpj, i)}
+                                            title={`Ver dados de ${meses[i]} para ${fornecedor.name}`}
+                                        />
+                                        {/* <span className={`inline-block w-7 h-7 rounded-full border ${cor}`}></span> */}
                                     </td>
                                 ))}
                             </tr>

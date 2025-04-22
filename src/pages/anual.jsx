@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import YearReportData from "../app/components/YearReportData";
+import MonthlyReportData from "../app/components/MonthlyReportTable";
 
 export default function ReportPage() {
     const [data, setData] = useState(null);
@@ -47,7 +48,8 @@ export default function ReportPage() {
 
     return (
         <div className="container mx-auto p-2">
-            {data && <YearReportData data={data} />}
+            {/* {data && <YearReportData data={data} />} */}
+            {data && <MonthlyReportData dadosFornecedores={data} />}
         </div>
     )
 }

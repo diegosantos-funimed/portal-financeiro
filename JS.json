@@ -1,78 +1,339 @@
-{
-	"body": {
-		"totalCarregado": 800,
-		"totalMapeado": 800,
-		"amostra": [
-			{
-				"summary": "PDI | PRIMEIRO TRISMESTRE FEEDBACK",
-				"parent": "2025 | MAYRA | ENTRTEGAS",
-				"creator": "mayraaraujo",
-				"created": "2025-04-15T15:14:37.968-0300",
-				"resolutionDate": "",
-				"lastUpdate": "2025-04-15T15:15:15.306-0300",
-				"assignee": "mayraaraujo",
-				"priority": "Medium",
-				"category": "Totvs",
-				"subcategory": "Governança TI",
-				"key": "FU-872",
-				"status": "Em andamento"
-			},
-			{
-				"summary": "PDI | PRIMEIRO TRISMESTRE",
-				"parent": "2025 | MAYRA | ENTRTEGAS",
-				"creator": "mayraaraujo",
-				"created": "2025-04-15T15:12:59.747-0300",
-				"resolutionDate": "2025-04-15T15:13:40.397-0300",
-				"lastUpdate": "2025-04-15T15:13:40.422-0300",
-				"assignee": "mayraaraujo",
-				"priority": "Medium",
-				"category": "Totvs",
-				"subcategory": "Governança TI",
-				"key": "FU-871",
-				"status": "Itens concluídos"
-			},
-			{
-				"summary": "Projeto Omni",
-				"parent": "",
-				"creator": "Ângelo Antônio M. Albuquerque Lopes",
-				"created": "2025-04-15T14:32:46.395-0300",
-				"resolutionDate": "",
-				"lastUpdate": "2025-04-15T14:39:49.350-0300",
-				"assignee": "Ângelo Antônio M. Albuquerque Lopes",
-				"priority": "Highest",
-				"category": "Dados",
-				"subcategory": "Governança TI",
-				"key": "FU-870",
-				"status": "Em andamento"
-			},
-			{
-				"summary": "Cloud 22570282 | Revitalização de API e Formula Visual Terceiros",
-				"parent": "CLOUD 22570282 | MIGRAÇÃO AMBIENTE TOTVS",
-				"creator": "mayraaraujo",
-				"created": "2025-04-15T14:02:09.877-0300",
-				"resolutionDate": "",
-				"lastUpdate": "2025-04-15T14:08:50.950-0300",
-				"assignee": "mayraaraujo",
-				"priority": "Medium",
-				"category": "Totvs",
-				"subcategory": "Totvs - Integração externa",
-				"key": "FU-869",
-				"status": "Em andamento"
-			},
-			{
-				"summary": "Criar endpoint da API do Jira",
-				"parent": "2025 | Atividades Diversas | Diego Pedro",
-				"creator": "Diego Pedro dos Santos",
-				"created": "2025-04-15T13:40:29.274-0300",
-				"resolutionDate": "2025-04-15T13:40:40.273-0300",
-				"lastUpdate": "2025-04-15T13:40:40.282-0300",
-				"assignee": "Diego Pedro dos Santos",
-				"priority": "Medium",
-				"category": "Dados",
-				"subcategory": "Atendimentos | Atividades | Tickets",
-				"key": "FU-868",
-				"status": "Itens concluídos"
-			}
-		]
-	}
-}
+[
+    {
+        "aprovadoNF": null,
+        "anexo": [
+            {
+                "_id": "67ffa6a8fd1aae1918089246",
+                "name": "TCLoud 1.jpg",
+                "contentText": null,
+                "pendingContentExtraction": false,
+                "contentType": "image/jpeg",
+                "length": 41516,
+                "hash": "129f5c5a00312a054c8a77df74da1466"
+            },
+            {
+                "_id": "67ffa6a98ac414715eb4826d",
+                "name": "TCLoud 3.png",
+                "contentText": null,
+                "pendingContentExtraction": false,
+                "contentType": "image/png",
+                "length": 521238,
+                "hash": "a5d8691608907c9f04fa14a1ac2f6dcb"
+            },
+            {
+                "_id": "67ffa6a9fd1aae1918089f46",
+                "name": "TCLoud 2.png",
+                "contentText": null,
+                "pendingContentExtraction": false,
+                "contentType": "image/png",
+                "length": 528524,
+                "hash": "d9dfe47bb9d29efe3be526fbdb22ee55"
+            }
+        ],
+        "etapa": "Aguardando aprovação de nota fiscal do responsável",
+        "aprovadoSolicitacao": true,
+        "solicitante": "João Pedro Ribeiro Soares",
+        "centroDeCusto": [
+            {
+                "setor": "Serviços de TI",
+                "codigoDoCentroDeCustos": "1.23.00.10",
+                "porcentagem": 100
+            }
+        ],
+        "valor": 7057.89,
+        "cnpj": "53113791001285",
+        "descricao": "TOTVS CLOUD RM STANDARD / TOTVS CLOUD ADICIONAL STANDARD",
+        "protocolo": "70068",
+        "lancamentoTOTVS": "5261196",
+        "dataAtualizacao": "2025-04-16T14:51:19.628Z",
+        "fornecedor": "TOTVS S A",
+        "areaResponsavel": "Tecnologia da Informação",
+        "dataCriacao": "2025-04-16T13:03:59.362Z",
+        "aprovador": "LOUIS BOULANGER NETO",
+        "anexoNF": {
+            "_id": "67ffb7f6fd1aae19180e7e7a",
+            "name": "__ NFS-e - Nota Fiscal de Serviços eletrônica __.pdf",
+            "contentText": null,
+            "pendingContentExtraction": false,
+            "contentType": "application/pdf",
+            "length": 141422,
+            "hash": "4f01c7f5311fdd3c2d8810c4c654dc59"
+        }
+    },
+    {
+        "aprovadoNF": null,
+        "anexo": [
+            {
+                "_id": "67ffa9fcd67de616feb252b2",
+                "name": "Licenças TOTVS.png",
+                "contentText": null,
+                "pendingContentExtraction": false,
+                "contentType": "image/png",
+                "length": 154565,
+                "hash": "209234ca6d2c2eb8cb1508671d567921"
+            }
+        ],
+        "etapa": "Aguardando aprovação de nota fiscal do responsável",
+        "aprovadoSolicitacao": true,
+        "solicitante": "João Pedro Ribeiro Soares",
+        "centroDeCusto": [
+            {
+                "setor": "Serviços de TI",
+                "codigoDoCentroDeCustos": "1.23.00.10",
+                "porcentagem": 100
+            }
+        ],
+        "valor": 17625.57,
+        "cnpj": "53113791001285",
+        "descricao": "SMS TOTVS I TRAD / SMS FULL TOTVS TRAD / DC.WM01.Mnt",
+        "protocolo": "70067",
+        "lancamentoTOTVS": "5261195",
+        "dataAtualizacao": "2025-04-16T14:49:25.355Z",
+        "fornecedor": "TOTVS S A",
+        "areaResponsavel": "Tecnologia da Informação",
+        "dataCriacao": "2025-04-16T13:01:58.360Z",
+        "aprovador": "LOUIS BOULANGER NETO",
+        "anexoNF": {
+            "_id": "67ffb7b8fd1aae1918fd265d",
+            "name": "__ NFS-e - Nota Fiscal de Serviços eletrônica __.pdf",
+            "contentText": null,
+            "pendingContentExtraction": false,
+            "contentType": "application/pdf",
+            "length": 143132,
+            "hash": "4b3031255ba83f7b5b94e26d1641ee60"
+        }
+    },
+    {
+        "aprovadoNF": null,
+        "anexo": [
+            {
+                "_id": "67ffa8d78ac414715ef59eae",
+                "name": "TPF.png",
+                "contentText": null,
+                "pendingContentExtraction": false,
+                "contentType": "image/png",
+                "length": 108194,
+                "hash": "628c2c1540f7c0a568061806774ed9ae"
+            }
+        ],
+        "etapa": "Aguardando aprovação de nota fiscal do responsável",
+        "aprovadoSolicitacao": true,
+        "solicitante": "João Pedro Ribeiro Soares",
+        "centroDeCusto": [
+            {
+                "setor": "Serviços de TI",
+                "codigoDoCentroDeCustos": "1.23.00.10",
+                "porcentagem": 100
+            }
+        ],
+        "valor": 2757.26,
+        "cnpj": "53113791001285",
+        "descricao": "TOTVS – Secretaria digital e licenciamento do TPF",
+        "protocolo": "70065",
+        "lancamentoTOTVS": "5261193",
+        "dataAtualizacao": "2025-04-16T16:13:38.887Z",
+        "fornecedor": "TOTVS S A",
+        "areaResponsavel": "Tecnologia da Informação",
+        "dataCriacao": "2025-04-16T12:58:17.635Z",
+        "aprovador": "LOUIS BOULANGER NETO",
+        "anexoNF": {
+            "_id": "67ffb7ddfd1aae191802c7ef",
+            "name": "__ NFS-e - Nota Fiscal de Serviços eletrônica __.pdf",
+            "contentText": null,
+            "pendingContentExtraction": false,
+            "contentType": "application/pdf",
+            "length": 142487,
+            "hash": "71b635608e334a09896d475a8eec5729"
+        }
+    },
+    {
+        "aprovadoNF": null,
+        "anexo": [
+            {
+                "_id": "67ffa6a8fd1aae1918089246",
+                "name": "TCLoud 1.jpg",
+                "contentText": null,
+                "pendingContentExtraction": false,
+                "contentType": "image/jpeg",
+                "length": 41516,
+                "hash": "129f5c5a00312a054c8a77df74da1466"
+            },
+            {
+                "_id": "67ffa6a9fd1aae1918089f46",
+                "name": "TCLoud 2.png",
+                "contentText": null,
+                "pendingContentExtraction": false,
+                "contentType": "image/png",
+                "length": 528524,
+                "hash": "d9dfe47bb9d29efe3be526fbdb22ee55"
+            },
+            {
+                "_id": "67ffa6a98ac414715eb4826d",
+                "name": "TCLoud 3.png",
+                "contentText": null,
+                "pendingContentExtraction": false,
+                "contentType": "image/png",
+                "length": 521238,
+                "hash": "a5d8691608907c9f04fa14a1ac2f6dcb"
+            }
+        ],
+        "etapa": "Aguardando aprovação de nota fiscal do responsável",
+        "aprovadoSolicitacao": true,
+        "solicitante": "João Pedro Ribeiro Soares",
+        "centroDeCusto": [
+            {
+                "setor": "Serviços de TI",
+                "codigoDoCentroDeCustos": "1.23.00.10",
+                "porcentagem": 100
+            }
+        ],
+        "valor": 7057.89,
+        "cnpj": "53113791001285",
+        "descricao": "TOTVS CLOUD RM STANDARD / TOTVS CLOUD ADICIONAL STANDARD",
+        "protocolo": "70060",
+        "lancamentoTOTVS": "5261197",
+        "dataAtualizacao": "2025-04-16T14:55:51.206Z",
+        "fornecedor": "TOTVS S A",
+        "areaResponsavel": "Tecnologia da Informação",
+        "dataCriacao": "2025-04-16T12:47:54.627Z",
+        "aprovador": "LOUIS BOULANGER NETO",
+        "anexoNF": {
+            "_id": "67ffb08f8ac414715eb6f2bc",
+            "name": "__ NFS-e - Nota Fiscal de Serviços eletrônica __.pdf",
+            "contentText": null,
+            "pendingContentExtraction": false,
+            "contentType": "application/pdf",
+            "length": 141638,
+            "hash": "230d56ea8beb9684b593142d4102215a"
+        }
+    },
+    {
+        "aprovadoNF": null,
+        "anexo": [
+            {
+                "_id": "67ffa428d67de616fe506e16",
+                "name": "Imagem1.jpg",
+                "contentText": null,
+                "pendingContentExtraction": false,
+                "contentType": "image/jpeg",
+                "length": 162488,
+                "hash": "b2609d2867f5647bf9c3163aa822d875"
+            }
+        ],
+        "etapa": "Aguardando aprovação de nota fiscal do responsável",
+        "aprovadoSolicitacao": true,
+        "solicitante": "João Pedro Ribeiro Soares",
+        "centroDeCusto": [
+            {
+                "setor": "Serviços de TI",
+                "codigoDoCentroDeCustos": "1.23.00.10",
+                "porcentagem": 100
+            }
+        ],
+        "valor": 3096.41,
+        "cnpj": "53113791001285",
+        "descricao": "FEEDZ 2 MOD PACK 100 COL EXCED / FEEDZ 2 MOD PACK 100 COL / FEEDZ 2 MOD PACK 100 COL UN",
+        "protocolo": "70054",
+        "lancamentoTOTVS": "5261193",
+        "dataAtualizacao": "2025-04-16T14:53:24.205Z",
+        "fornecedor": "TOTVS S A",
+        "areaResponsavel": "Tecnologia da Informação",
+        "dataCriacao": "2025-04-16T12:37:01.978Z",
+        "aprovador": "LOUIS BOULANGER NETO",
+        "anexoNF": {
+            "_id": "67ffb01a8ac414715e9dc1e9",
+            "name": "nota_479718-70966.pdf",
+            "contentText": null,
+            "pendingContentExtraction": false,
+            "contentType": "application/pdf",
+            "length": 6817,
+            "hash": "7187032e9047b192363b9aea6f64bc95"
+        }
+    },
+    {
+        "aprovadoNF": null,
+        "anexo": [
+            {
+                "_id": "67feba058ac414715e1ed0bc",
+                "name": "SMS TOTVS.png",
+                "contentText": null,
+                "pendingContentExtraction": false,
+                "contentType": "image/png",
+                "length": 211756,
+                "hash": "f3dec0c046676264181e63bba24b5349"
+            }
+        ],
+        "etapa": "Aguardando aprovação de nota fiscal do responsável",
+        "aprovadoSolicitacao": true,
+        "solicitante": "João Pedro Ribeiro Soares",
+        "centroDeCusto": [
+            {
+                "setor": "Serviços de TI",
+                "codigoDoCentroDeCustos": "1.23.00.10",
+                "porcentagem": 100
+            }
+        ],
+        "valor": 17625.57,
+        "cnpj": "53113791001285",
+        "descricao": "SMS TOTVS I TRAD / SMS FULL TOTVS TRAD / DC.WM01.Mnt",
+        "protocolo": "70005",
+        "lancamentoTOTVS": "5261199",
+        "dataAtualizacao": "2025-04-16T14:57:08.345Z",
+        "fornecedor": "TOTVS S A",
+        "areaResponsavel": "Tecnologia da Informação",
+        "dataCriacao": "2025-04-15T19:58:03.335Z",
+        "aprovador": "LOUIS BOULANGER NETO",
+        "anexoNF": {
+            "_id": "67febac340568c27520be6f8",
+            "name": "__ NFS-e - Nota Fiscal de Serviços eletrônica __.pdf",
+            "contentText": null,
+            "pendingContentExtraction": false,
+            "contentType": "application/pdf",
+            "length": 144058,
+            "hash": "23a0674f7b4231efa69cdc496be6bf35"
+        }
+    },
+    {
+        "aprovadoNF": true,
+        "anexo": [
+            {
+                "_id": "67f3e5b6f809be0db4ad4e4b",
+                "name": "Proposta_TOTVS _Cloud_2025_Faculdade Unimed.pdf",
+                "contentText": null,
+                "pendingContentExtraction": false,
+                "contentType": "application/pdf",
+                "length": 1708806,
+                "hash": "544b7825a02ffd664313d6765462dbe3"
+            }
+        ],
+        "etapa": "Aguardando o pagamento ser efetuado",
+        "aprovadoSolicitacao": true,
+        "solicitante": "João Pedro Ribeiro Soares",
+        "centroDeCusto": [
+            {
+                "setor": "Investimento",
+                "codigoDoCentroDeCustos": "1.18.39.02",
+                "porcentagem": 100
+            }
+        ],
+        "valor": 17720.02,
+        "cnpj": "53113791001285",
+        "descricao": "Serviço de setup ambiente para migração TCloud",
+        "protocolo": "68876",
+        "lancamentoTOTVS": "5259220",
+        "dataAtualizacao": "2025-04-14T19:46:40.407Z",
+        "fornecedor": "TOTVS S A",
+        "areaResponsavel": "Tecnologia da Informação",
+        "dataCriacao": "2025-04-07T14:49:30.451Z",
+        "aprovador": "LOUIS BOULANGER NETO",
+        "anexoNF": {
+            "_id": "67f4249e1a2d005bd1c10c1c",
+            "name": "NF TOTVS.pdf",
+            "contentText": null,
+            "pendingContentExtraction": false,
+            "contentType": "application/pdf",
+            "length": 203428,
+            "hash": "d81c00a67ebc54fdd43f636a2f3082e2"
+        }
+    }
+]
