@@ -22,3 +22,13 @@ body {
 .w-90p{
   width: 90%;
 }
+
+.accordion-content {
+  transition: max-height 0.5s ease;
+  overflow: hidden;
+  max-height: 0;
+}
+
+.accordion-content.open {
+  max-height: 500px; /* valor alto suficiente pro conteúdo */
+}
