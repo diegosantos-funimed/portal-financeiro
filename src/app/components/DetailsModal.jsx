@@ -54,10 +54,10 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                         <p className="text text-gray-700 w-full">
                             <strong>Fornecedor :</strong> {formatCNPJ(selectedItem.cnpj)} - {selectedItem.fornecedor}
                         </p>
-                       
+
                     </div>
                     <div className="flex border-l border-r p-1 bg-gray-200">
-                    <p className="text text-gray-700 ">
+                        <p className="text text-gray-700 ">
                             <strong>Solicitante:</strong> {selectedItem.solicitante}
                         </p>
                     </div>
@@ -77,7 +77,15 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                             <strong>Última Atualização:</strong> {formatDate(selectedItem.dataAtualizacao)}
                         </p>
                     </div>
-                    <div className="flex border p-1">
+                    <div className="flex border-t border-r border-l p-1 ">
+                        <p className="text text-gray-700 w-1/2">
+                            <strong>Data da aprovação da medição:</strong> {formatDate(selectedItem.dataDeAprovacaoDeMedicao)}
+                        </p>
+                        <p className="text text-gray-700 w-1/2">
+                            <strong>Data da aprovação da nota fiscal:</strong> {formatDate(selectedItem.dataDeAprovacaoDeNota)}
+                        </p>
+                    </div>
+                    <div className="flex border p-1 bg-gray-200">
                         <p className="text text-gray-700 w-1/2">
                             <strong>Valor:</strong> R$ {formatNumberToDecimal(selectedItem.valor)}
                         </p>
@@ -104,7 +112,16 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                                             "NF validada e Processo finalizado" : "Erro"}</span>
                         </p>
                     </div>
-                    <p className="text text-gray-700 border-l border-r bg-gray-200  p-1">
+                    {selectedItem.lancamentoTOTVS && (
+                        <div className="flex bg-gray-200 border-b border-r border-l p-1 ">
+                            <p className="text text-gray-700 w-1/2">
+                                <strong>Referência de lançaento TOTVS:</strong> {selectedItem.lancamentoTOTVS}
+                            </p>
+
+                        </div>
+                    )}
+
+                    <p className="text  text-gray-700 border-l border-r p-1">
                         <strong>Descrição:</strong> {selectedItem.descricao}
                     </p>
                     <p className="text text-gray-700 border p-2 ">

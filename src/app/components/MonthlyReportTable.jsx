@@ -9,6 +9,7 @@ import LegendTooltip from "./LegendTooptip";
 const MonthlyReportData = ({ dadosFornecedores }) => {
     const [selectedCnpj, setSelectedCnpj] = useState(null);
     const [selectedMes, setSelectedMes] = useState(null);
+    const [selectedSupplier, setSelectedSupplier] = useState(null);
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(false);
 

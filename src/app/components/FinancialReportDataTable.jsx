@@ -3,12 +3,13 @@ import formatDate from "../utils/formatDate";
 import formatNumberToDecimal from "../utils/formatNumberToDecimal";
 import formatCNPJ from "../utils/formatCNPJ";
 import LegendTooltip from "./LegendTooptip";
-import { AttachMoney, Money, Visibility } from "@mui/icons-material";
+import { AttachMoney, Money, ThumbsUpDown, ThumbUp, Visibility } from "@mui/icons-material";
 import handleStatusFlag from "../utils/handleStatusFlag";
 import DetailsModal from "./DetailsModal";
 import CostDetailsModal from "./CostDetailsModal";
+import ApprovalModal from "./ApprovalModal";
 
-const ManagerReportDataTable = ({ data, isFilteredData }) => {
+const FinancialReportDataTable = ({ data, isFilteredData }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [searchQuery, setSearchQuery] = useState("");
@@ -17,6 +18,7 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
   const [statusFilter, setStatusFilter] = useState("");
   const [openModal, setModal] = useState(false);
   const [openCostModal, setCostModal] = useState(false);
+  const [openPaymentModal, setPaymentModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [showTooltip, setShowTooltip] = useState(false);
   const [selectedTooltip, setSelectedTooltip] = useState(null);
@@ -70,6 +72,11 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
     setCostModal(true);
   }
 
+  const handlePaymentModal = (item) => {
+    setSelectedItem(item);
+    setPaymentModal(true);
+  }
+
   return (
     <div className="overflow-x-auto ">
       {/* Modal geral */}
@@ -80,6 +87,9 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
       {openCostModal && selectedItem && (
         <CostDetailsModal item={selectedItem} onClose={() => setCostModal(false)} />
       )}
+      {openPaymentModal && selectedItem && (
+        <ApprovalModal item={selectedItem} onClose={() => setPaymentModal(false)} />
+      )}
       {/* Ficou parado */}
       {showTooltip && (
         <div className="absolute right-0 mt-6 w-80 p-2 bg-gray-800 text-white text-sm rounded transition-opacity">
@@ -89,10 +99,10 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
       {!isFilteredData && (
         <div className="flex content-start gap-3">
           <div className="mb-4">
-            <label className="block mb-1">Buscar por CNPJ, Solicitante, Protocolo ou Área responsável:</label>
+            <label className="block mb-1">Buscar por CNPJ, Solicitante, Protocolo, Área responsável ou TOTVS:</label>
             <input
               type="text"
-              className="border rounded p-2 w-120"
+              className="border rounded p-2 w-150"
               placeholder="Digite para buscar..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -120,25 +130,7 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
             </div>
           </div>
 
-          <div className="flex mb-4 flex-col">
-            <label className="block mb-1">Status:</label>
-            <select
-              name="status_filter"
-              id="status_filter"
-              className="border rounded p-2 w-50"
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-            >
-              <option value="">Selecione uma opção</option>
-              <option value="not_send">NF Pendente ou Medição reprovada</option>
-              <option value="sended">NF enviada</option>
-              <option value="totvs_id">Lançamento TOTVs realizado</option>
-              <option value="finished">Aprovado e lançado no TOTVS</option>
-            </select>
-          </div>
-          <div className="w-full mb-4 self-center">
-            <LegendTooltip />
-          </div>
+
         </div>
       )}
 
@@ -151,9 +143,8 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
             <th className="border p-2">Data de abertura</th>
             <th className="border p-2">Ultima atualização</th>
             <th className="border p-2">Aréa responsável</th>
-            <th className="border p-2">Descrição</th>
             <th className="border p-2">Valor</th>
-            <th className="border p-2">Status</th>
+            <th className="border p-2">Lançamento TOTVS</th>
             {/* <th className="border p-2">Anexo <br /> Evidências</th> */}
             <th className="border p-2">Ações</th>
           </tr>
@@ -166,25 +157,20 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
               <td className="border p-2 text-center">{formatDate(item.dataCriacao)}</td>
               <td className="border p-2 text-center">{formatDate(item.dataAtualizacao)}</td>
               <td className="border p-2 text-center">{item.areaResponsavel}</td>
-              <td className="border p-2 text-center">
-                {item.descricao.length > 30 ? `${item.descricao.substring(0, 30)}...` : item.descricao}
-              </td>
+
               <td className="border p-2 text-center">R$ {formatNumberToDecimal(item.valor)}</td>
               <td className="border p-2 text-center">
-                <span
-                  className={`inline-block w-3 h-3 p-2 border rounded-full 
-                    ${handleStatusFlag(item) === "not_send" ?
-                      "bg-red-500" :
-                      handleStatusFlag(item) === "sended" ?
-                        "bg-yellow-500" :
-                        handleStatusFlag(item) === "totvs_id" ?
-                          "bg-blue-500" :
-                          handleStatusFlag(item) === "finished" ?
-                            "bg-green-500" : "bg-gray-500"}`}
-                ></span>
+                {item.lancamentoTOTVS}
 
               </td>
-              <td className="py-3 px-1 text-center flex justify-center items-center gap-2">
+              <td className="py-3 px-1 mt-2 text-center flex justify-center items-center gap-2">
+                <button
+                  type="button"
+                  className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-green-600 cursor-pointer"
+                  onClick={() => handlePaymentModal(item)}
+                >
+                  <ThumbUp />
+                </button>
                 <button
                   type="button"
                   className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-blue-400 cursor-pointer"
@@ -231,4 +217,4 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
   );
 };
 
-export default ManagerReportDataTable;
+export default FinancialReportDataTable;
