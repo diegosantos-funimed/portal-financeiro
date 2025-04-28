@@ -21,7 +21,7 @@ const MonthlyReportData = ({ dadosFornecedores }) => {
 
             setLoading(true);
             try {
-                const response = await fetch(`https://faculdadeunimed.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/devAPI?cnpj=${selectedCnpj}&mes=${selectedMes}`, {
+                const response = await fetch(`https://faculdadeunimed.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/getFilteredMonthData?cnpj=${selectedCnpj}&mes=${selectedMes}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
