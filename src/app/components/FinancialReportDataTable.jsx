@@ -36,22 +36,25 @@ const FinancialReportDataTable = ({ data, isFilteredData }) => {
     const itemDate = new Date(item.dataCriacao);
     const start = startDate ? new Date(startDate) : null;
     const end = endDate ? new Date(endDate) : null;
-
+  
     const matchesSearch =
       !searchQuery ||
       formatCNPJ(item.cnpj).includes(searchQuery) ||
       item.solicitante.toLowerCase().includes(searchQuery.toLowerCase()) ||
       formatDate(item.dataCriacao).includes(searchQuery) ||
       item.protocolo.toString().includes(searchQuery) ||
-      item.areaResponsavel?.toLowerCase().includes(searchQuery.toLowerCase()); // <-- Incluído filtro para área responsável
-
+      item.lancamentoTOTVS.toString().includes(searchQuery) ||
+      item.areaResponsavel?.toLowerCase().includes(searchQuery.toLowerCase());
+  
     const matchesDateRange =
       (!start || itemDate >= start) && (!end || itemDate <= end);
-
-    const matchesStatus =
-      !statusFilter || handleStatusFlag(item) === statusFilter;
-
-    return matchesSearch && matchesDateRange && matchesStatus;
+  
+    const matchesPaymentStatus =
+      !statusFilter ||
+      (statusFilter === "pago" && item.pagamentoConfirmado !== null) ||
+      (statusFilter === "pendente" && item.pagamentoConfirmado === null);
+  
+    return matchesSearch && matchesDateRange && matchesPaymentStatus;
   });
 
   // Atualiza o total de páginas com base nos dados filtrados
@@ -146,6 +149,18 @@ const FinancialReportDataTable = ({ data, isFilteredData }) => {
                 onChange={(e) => setEndDate(e.target.value)}
               />
             </div>
+          </div>
+          <div>
+            <label className="block mb-1">Status do Pagamento:</label>
+            <select
+              className="border rounded w-50 p-2"
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+            >
+              <option value="">Todos</option>
+              <option value="pago">Pago</option>
+              <option value="pendente">Pendente</option>
+            </select>
           </div>
         </div>
       )}
