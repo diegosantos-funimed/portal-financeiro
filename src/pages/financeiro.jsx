@@ -18,7 +18,7 @@ export default function ReportPage() {
                     {
                         method: "POST",
                         headers: {
-                            "Authorization": `Basic ${process.env.NEXT_PUBLIC_API_KEY}`,
+                            "Authorization": `Basic ${process.env.NEXT_PUBLIC_PROD_KEY}`,
                             "User-Agent": "insomnia/10.3.0",
                         },
                         cache: "no-store",
