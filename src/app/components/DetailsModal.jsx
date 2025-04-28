@@ -115,9 +115,8 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                     {selectedItem.lancamentoTOTVS && (
                         <div className="flex bg-gray-200 border-b border-r border-l p-1 ">
                             <p className="text text-gray-700 w-1/2">
-                                <strong>Referência de lançaento TOTVS:</strong> {selectedItem.lancamentoTOTVS}
+                                <strong>Referência de lançamento TOTVS:</strong> {selectedItem.lancamentoTOTVS}
                             </p>
-
                         </div>
                     )}
 

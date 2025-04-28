@@ -3,7 +3,15 @@ import formatDate from "../utils/formatDate";
 import formatNumberToDecimal from "../utils/formatNumberToDecimal";
 import formatCNPJ from "../utils/formatCNPJ";
 import LegendTooltip from "./LegendTooptip";
-import { AttachMoney, Money, ThumbsUpDown, ThumbUp, Visibility } from "@mui/icons-material";
+import {
+  AttachMoney,
+  Check,
+  Close,
+  Money,
+  ThumbsUpDown,
+  ThumbUp,
+  Visibility,
+} from "@mui/icons-material";
 import handleStatusFlag from "../utils/handleStatusFlag";
 import DetailsModal from "./DetailsModal";
 import CostDetailsModal from "./CostDetailsModal";
@@ -37,13 +45,14 @@ const FinancialReportDataTable = ({ data, isFilteredData }) => {
       item.protocolo.toString().includes(searchQuery) ||
       item.areaResponsavel?.toLowerCase().includes(searchQuery.toLowerCase()); // <-- Incluído filtro para área responsável
 
-    const matchesDateRange = (!start || itemDate >= start) && (!end || itemDate <= end);
+    const matchesDateRange =
+      (!start || itemDate >= start) && (!end || itemDate <= end);
 
-    const matchesStatus = !statusFilter || handleStatusFlag(item) === statusFilter;
+    const matchesStatus =
+      !statusFilter || handleStatusFlag(item) === statusFilter;
 
     return matchesSearch && matchesDateRange && matchesStatus;
   });
-
 
   // Atualiza o total de páginas com base nos dados filtrados
   const totalPages = Math.ceil(filteredData.length / itemsPerPage) || 1;
@@ -70,12 +79,12 @@ const FinancialReportDataTable = ({ data, isFilteredData }) => {
   const handleCostModal = (item) => {
     setSelectedItem(item);
     setCostModal(true);
-  }
+  };
 
   const handlePaymentModal = (item) => {
     setSelectedItem(item);
     setPaymentModal(true);
-  }
+  };
 
   return (
     <div className="overflow-x-auto ">
@@ -85,10 +94,16 @@ const FinancialReportDataTable = ({ data, isFilteredData }) => {
       )}
       {/* Modal de centro de custo */}
       {openCostModal && selectedItem && (
-        <CostDetailsModal item={selectedItem} onClose={() => setCostModal(false)} />
+        <CostDetailsModal
+          item={selectedItem}
+          onClose={() => setCostModal(false)}
+        />
       )}
       {openPaymentModal && selectedItem && (
-        <ApprovalModal item={selectedItem} onClose={() => setPaymentModal(false)} />
+        <ApprovalModal
+          item={selectedItem}
+          onClose={() => setPaymentModal(false)}
+        />
       )}
       {/* Ficou parado */}
       {showTooltip && (
@@ -99,7 +114,10 @@ const FinancialReportDataTable = ({ data, isFilteredData }) => {
       {!isFilteredData && (
         <div className="flex content-start gap-3">
           <div className="mb-4">
-            <label className="block mb-1">Buscar por CNPJ, Solicitante, Protocolo, Área responsável ou TOTVS:</label>
+            <label className="block mb-1">
+              Buscar por CNPJ, Solicitante, Protocolo, Área responsável ou
+              TOTVS:
+            </label>
             <input
               type="text"
               className="border rounded p-2 w-150"
@@ -129,11 +147,8 @@ const FinancialReportDataTable = ({ data, isFilteredData }) => {
               />
             </div>
           </div>
-
-
         </div>
       )}
-
 
       <table className="min-w-full border border-gray-300 ">
         <thead>
@@ -145,32 +160,48 @@ const FinancialReportDataTable = ({ data, isFilteredData }) => {
             <th className="border p-2">Aréa responsável</th>
             <th className="border p-2">Valor</th>
             <th className="border p-2">Lançamento TOTVS</th>
+            <th className="border p-2">Pago</th>
             {/* <th className="border p-2">Anexo <br /> Evidências</th> */}
             <th className="border p-2">Ações</th>
           </tr>
         </thead>
         <tbody>
-          {currentData.map((item) => (
-            <tr key={item._id} className="border hover:bg-gray-100">
+          {currentData.map((item, index) => (
+            <tr key={index} className="border hover:bg-gray-100">
               <td className="border p-2 text-center">{item.protocolo}</td>
-              <td className="border p-2 text-center">{formatCNPJ(item.cnpj)} - <br /> {item.fornecedor} </td>
-              <td className="border p-2 text-center">{formatDate(item.dataCriacao)}</td>
-              <td className="border p-2 text-center">{formatDate(item.dataAtualizacao)}</td>
+              <td className="border p-2 text-center">
+                {formatCNPJ(item.cnpj)} - <br /> {item.fornecedor}{" "}
+              </td>
+              <td className="border p-2 text-center">
+                {formatDate(item.dataCriacao)}
+              </td>
+              <td className="border p-2 text-center">
+                {formatDate(item.dataAtualizacao)}
+              </td>
               <td className="border p-2 text-center">{item.areaResponsavel}</td>
 
-              <td className="border p-2 text-center">R$ {formatNumberToDecimal(item.valor)}</td>
               <td className="border p-2 text-center">
-                {item.lancamentoTOTVS}
-
+                R$ {formatNumberToDecimal(item.valor)}
+              </td>
+              <td className="border p-2 text-center">{item.lancamentoTOTVS}</td>
+              <td className="border p-2 text-center">
+                {item.pagamentoConfirmado === null ? (
+                  <Close color="error" />
+                ) : (
+                  <Check color="success" />
+                )}
               </td>
               <td className="py-3 px-1 mt-2 text-center flex justify-center items-center gap-2">
-                <button
-                  type="button"
-                  className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-green-600 cursor-pointer"
-                  onClick={() => handlePaymentModal(item)}
-                >
-                  <ThumbUp />
-                </button>
+                {item.pagamentoConfirmado === null && (
+                  <button
+                    type="button"
+                    className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-green-600 cursor-pointer"
+                    onClick={() => handlePaymentModal(item)}
+                  >
+                    <ThumbUp />
+                  </button>
+                )}
+
                 <button
                   type="button"
                   className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-blue-400 cursor-pointer"
@@ -187,10 +218,8 @@ const FinancialReportDataTable = ({ data, isFilteredData }) => {
                     <AttachMoney />
                   </button>
                 )}
-
               </td>
             </tr>
-
           ))}
         </tbody>
       </table>
@@ -204,10 +233,14 @@ const FinancialReportDataTable = ({ data, isFilteredData }) => {
         >
           Anterior
         </button>
-        <span className="px-3">Página {currentPage} de {totalPages}</span>
+        <span className="px-3">
+          Página {currentPage} de {totalPages}
+        </span>
         <button
           className="px-3 py-1 border rounded mx-1 cursor-pointer hover:bg-gray-300"
-          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
           disabled={currentPage === totalPages}
         >
           Próxima
