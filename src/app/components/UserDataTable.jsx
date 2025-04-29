@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import formatDate from "../utils/formatDate";
 import * as Tooltip from '@radix-ui/react-tooltip'
+import UserDetailsModal from "./UserDetailsModal";
 
 const DataTable = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -10,6 +11,8 @@ const DataTable = ({ data }) => {
   const [endDate, setEndDate] = useState("");
   const [medicaoFilter, setMedicaoFilter] = useState("");
   const [notaFiscalFilter, setNotaFiscalFilter] = useState("");
+  const [openModal, setModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const filteredData = data.filter((item) => {
     const itemDate = new Date(item.data);
@@ -36,8 +39,16 @@ const DataTable = ({ data }) => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentData = filteredData.slice(startIndex, startIndex + itemsPerPage);
 
+  const handleModal = (item) => {
+    setSelectedItem(item);
+    setModal(true);
+  };
+  
   return (
     <div className="overflow-x-auto">
+      {openModal && selectedItem && (
+        <UserDetailsModal item={selectedItem} onClose={() => setModal(false)} />
+      )}
       <div className="flex gap-4 mb-4 flex-wrap">
         <div className="mb-4">
           <label className="block mb-1">Buscar por protocolo, aprovador ou área responsável</label>
@@ -62,7 +73,7 @@ const DataTable = ({ data }) => {
         </div>
         <div className="mb-4">
           <label className="block mb-1">Nota fiscal</label>
-          <select className="border rounded p-2" value={notaFiscalFilter} onChange={(e) => setNotaFiscalFilter(e.target.value)}>
+          <select className="border rounded p-2 w-50" value={notaFiscalFilter} onChange={(e) => setNotaFiscalFilter(e.target.value)}>
             <option value="">Selecione uma opção</option>
             <option value="approved">Aprovada</option>
             <option value="reproved">Reprovada</option>
@@ -80,19 +91,19 @@ const DataTable = ({ data }) => {
             <th className="border p-2">Área responsável</th>
             <th className="border p-2">Aprovado Medição</th>
             <th className="border p-2">Aprovado Nota Fiscal</th>
+            <th className="border p-2">Solicitação paga</th>
           </tr>
         </thead>
         <tbody>
           {currentData.map((item) => (
-            <tr key={item._id} className="border hover:bg-gray-100">
+            <tr key={item._id} className="border hover:bg-gray-100 hover:cursor-pointer" onClick={() => handleModal(item)}>
               <td className="border p-2 text-center">{item.protocolo}</td>
-              <td className="border p-2 text-center">{item.aprovadoNF && item.aprovadoSolicitacao ? "Aprovado" : item.etapa}</td>
+              <td className="border p-2 text-center">{item.pagamentoConfirmado !== null ? "Pago" : item.aprovadoNF && item.aprovadoSolicitacao ? "Aprovado"  : item.etapa}</td>
               <td className="border p-2 text-center">{formatDate(item.data)}</td>
               <td className="border p-2 text-center">{formatDate(item.dataAtualizacao)}</td>
               <td className="border p-2 text-center">{item.aprovador ?? "-"}</td>
               <td className="border p-2 text-center">{item.areaResponsavel ?? "-"}</td>
               <td className="border p-2 text-center">
-
                 <Tooltip.Provider>
                   <Tooltip.Root>
                     <Tooltip.Trigger asChild>
@@ -127,7 +138,24 @@ const DataTable = ({ data }) => {
                     </Tooltip.Content>
                   </Tooltip.Root>
                 </Tooltip.Provider>
-
+              </td>
+              <td className="border p-2 text-center">
+                <Tooltip.Provider>
+                  <Tooltip.Root>
+                    <Tooltip.Trigger asChild>
+                      <span className={`inline-block w-3 h-3 border p-2 hover:cursor-pointer rounded-full ${item.pagamentoConfirmado ? "bg-green-500" : "bg-red-500"}`}>
+                      </span>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content
+                      className="bg-gray-800 text-white px-3 py-2 rounded text-sm shadow-lg"
+                      side="top"
+                      sideOffset={5}
+                    >
+                      {item.pagamentoConfirmado ? "Solicitação paga" : "Solicitação não paga"}
+                      <Tooltip.Arrow className="fill-gray-800" />
+                    </Tooltip.Content>
+                  </Tooltip.Root>
+                </Tooltip.Provider>
               </td>
             </tr>
           ))}
