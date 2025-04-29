@@ -7,6 +7,7 @@ import { AttachMoney, Money, Visibility } from "@mui/icons-material";
 import handleStatusFlag from "../utils/handleStatusFlag";
 import DetailsModal from "./DetailsModal";
 import CostDetailsModal from "./CostDetailsModal";
+import * as Tooltip from '@radix-ui/react-tooltip'
 
 const ManagerReportDataTable = ({ data, isFilteredData }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -185,21 +186,59 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
 
               </td>
               <td className="py-3 px-1 text-center flex justify-center items-center gap-2">
-                <button
-                  type="button"
-                  className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-blue-400 cursor-pointer"
-                  onClick={() => handleModal(item)}
-                >
-                  <Visibility />
-                </button>
+                <Tooltip.Provider>
+                  <Tooltip.Root>
+                    <Tooltip.Trigger asChild>
+                      <button
+                        type="button"
+                        className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-blue-400 cursor-pointer"
+                        onClick={() => handleModal(item)}
+                      >
+                        <Visibility />
+                      </button>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content
+                      className="bg-gray-800 text-white px-3 py-2 rounded text-sm shadow-lg w-80"
+                      side="bottom"
+                      sideOffset={5}
+                    >
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-1">
+                          Visualizar detalhes da solicitação
+                        </div>
+                      </div>
+                      <Tooltip.Arrow className="fill-gray-800" />
+                    </Tooltip.Content>
+                  </Tooltip.Root>
+                </Tooltip.Provider>
+
                 {item.centroDeCusto !== "-" && (
-                  <button
-                    type="button"
-                    className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-green-600 cursor-pointer"
-                    onClick={() => handleCostModal(item)}
-                  >
-                    <AttachMoney />
-                  </button>
+                  <Tooltip.Provider>
+                    <Tooltip.Root>
+                      <Tooltip.Trigger asChild>
+                        <button
+                          type="button"
+                          className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-green-800 cursor-pointer"
+                          onClick={() => handleCostModal(item)}
+                        >
+                          <AttachMoney />
+                        </button>
+                      </Tooltip.Trigger>
+                      <Tooltip.Content
+                        className="bg-gray-800 text-white px-3 py-2 rounded text-sm shadow-lg w-80"
+                        side="bottom"
+                        sideOffset={5}
+                      >
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-1">
+                            Visualizar detalhes do centro de custo
+                          </div>
+                        </div>
+                        <Tooltip.Arrow className="fill-gray-800" />
+                      </Tooltip.Content>
+                    </Tooltip.Root>
+                  </Tooltip.Provider>
+
                 )}
 
               </td>

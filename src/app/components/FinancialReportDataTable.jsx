@@ -12,7 +12,7 @@ import {
   ThumbUp,
   Visibility,
 } from "@mui/icons-material";
-import handleStatusFlag from "../utils/handleStatusFlag";
+import * as Tooltip from '@radix-ui/react-tooltip'
 import DetailsModal from "./DetailsModal";
 import CostDetailsModal from "./CostDetailsModal";
 import ApprovalModal from "./ApprovalModal";
@@ -36,7 +36,7 @@ const FinancialReportDataTable = ({ data, isFilteredData }) => {
     const itemDate = new Date(item.dataCriacao);
     const start = startDate ? new Date(startDate) : null;
     const end = endDate ? new Date(endDate) : null;
-  
+
     const matchesSearch =
       !searchQuery ||
       formatCNPJ(item.cnpj).includes(searchQuery) ||
@@ -45,15 +45,15 @@ const FinancialReportDataTable = ({ data, isFilteredData }) => {
       item.protocolo.toString().includes(searchQuery) ||
       item.lancamentoTOTVS.toString().includes(searchQuery) ||
       item.areaResponsavel?.toLowerCase().includes(searchQuery.toLowerCase());
-  
+
     const matchesDateRange =
       (!start || itemDate >= start) && (!end || itemDate <= end);
-  
+
     const matchesPaymentStatus =
       !statusFilter ||
       (statusFilter === "pago" && item.pagamentoConfirmado !== null) ||
       (statusFilter === "pendente" && item.pagamentoConfirmado === null);
-  
+
     return matchesSearch && matchesDateRange && matchesPaymentStatus;
   });
 
@@ -208,30 +208,88 @@ const FinancialReportDataTable = ({ data, isFilteredData }) => {
               </td>
               <td className="py-3 px-1 mt-2 text-center flex justify-center items-center gap-2">
                 {item.pagamentoConfirmado === null && (
-                  <button
-                    type="button"
-                    className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-green-600 cursor-pointer"
-                    onClick={() => handlePaymentModal(item)}
-                  >
-                    <ThumbUp />
-                  </button>
+                  <Tooltip.Provider>
+                    <Tooltip.Root>
+                      <Tooltip.Trigger asChild>
+                        <button
+                          type="button"
+                          className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-green-600 cursor-pointer"
+                          onClick={() => handlePaymentModal(item)}
+                        >
+                          <ThumbUp />
+                        </button>
+                      </Tooltip.Trigger>
+                      <Tooltip.Content
+                        className="bg-gray-800 text-white px-3 py-2 rounded text-sm shadow-lg w-80"
+                        side="bottom"
+                        sideOffset={5}
+                      >
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-1">
+                            Confirmar que o pagamento foi efetuado
+                          </div>
+                        </div>
+                        <Tooltip.Arrow className="fill-gray-800" />
+                      </Tooltip.Content>
+                    </Tooltip.Root>
+                  </Tooltip.Provider>
+
                 )}
 
-                <button
-                  type="button"
-                  className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-blue-400 cursor-pointer"
-                  onClick={() => handleModal(item)}
-                >
-                  <Visibility />
-                </button>
+                <Tooltip.Provider>
+                  <Tooltip.Root>
+                    <Tooltip.Trigger asChild>
+                      <button
+                        type="button"
+                        className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-blue-400 cursor-pointer"
+                        onClick={() => handleModal(item)}
+                      >
+                        <Visibility />
+                      </button>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content
+                      className="bg-gray-800 text-white px-3 py-2 rounded text-sm shadow-lg w-80"
+                      side="bottom"
+                      sideOffset={5}
+                    >
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-1">
+                          Visualizar detalhes da solicitação
+                        </div>
+                      </div>
+                      <Tooltip.Arrow className="fill-gray-800" />
+                    </Tooltip.Content>
+                  </Tooltip.Root>
+                </Tooltip.Provider>
+
+
                 {item.centroDeCusto !== "-" && (
-                  <button
-                    type="button"
-                    className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-green-600 cursor-pointer"
-                    onClick={() => handleCostModal(item)}
-                  >
-                    <AttachMoney />
-                  </button>
+                  <Tooltip.Provider>
+                    <Tooltip.Root>
+                      <Tooltip.Trigger asChild>
+                        <button
+                          type="button"
+                          className="h-8 p-1 border border-black font-medium text-sm rounded-md text-white bg-green-700 cursor-pointer"
+                          onClick={() => handleCostModal(item)}
+                        >
+                          <AttachMoney />
+                        </button>
+                      </Tooltip.Trigger>
+                      <Tooltip.Content
+                        className="bg-gray-800 text-white px-3 py-2 rounded text-sm shadow-lg w-80"
+                        side="bottom"
+                        sideOffset={5}
+                      >
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-1">
+                            Visualizar detalhes do centro de custo
+                          </div>
+                        </div>
+                        <Tooltip.Arrow className="fill-gray-800" />
+                      </Tooltip.Content>
+                    </Tooltip.Root>
+                  </Tooltip.Provider>
+
                 )}
               </td>
             </tr>
