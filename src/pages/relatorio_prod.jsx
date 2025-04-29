@@ -2,20 +2,25 @@
 
 import { useEffect, useState } from "react";
 import ManagerReportDataTable from "../app/components/ManagerReportDataTable";
-import LegendTooltip from "../app/components/LegendTooptip";
+import { useSearchParams } from "next/navigation";
 
 export default function ReportPage() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const searchParams = useSearchParams();
+
+    const userName = searchParams.get("user_id");
 
     useEffect(() => {
+        if (!userName) return;
+
         async function fetchData() {
             try {
                 const response = await fetch(
-                    "https://faculdadeunimed.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/getManagerData",
+                    "https://faculdadeunimed.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/getManagerData?user_id=" + userName,
                     {
-                        method: "POST",
+                        method: "GET",
                         headers: {
                             "Authorization": `Basic ${process.env.NEXT_PUBLIC_PROD_KEY}`,
                             "User-Agent": "insomnia/10.3.0",
@@ -39,7 +44,7 @@ export default function ReportPage() {
         }
 
         fetchData();
-    }, []);
+    }, [userName]);
 
 
     return (
