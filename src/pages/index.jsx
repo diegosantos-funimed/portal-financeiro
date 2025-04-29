@@ -21,7 +21,7 @@ export default function DashboardPage() {
     async function fetchData() {
       try {
         const response = await fetch(
-          "https://faculdadeunimed.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/getUserSolicitations",
+          "https://faculdadeunimed-dev.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/getUserSolicitations",
           {
             method: "POST",
             headers: {
