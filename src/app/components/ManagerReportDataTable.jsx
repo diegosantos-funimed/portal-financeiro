@@ -34,7 +34,7 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
       item.solicitante.toLowerCase().includes(searchQuery.toLowerCase()) ||
       formatDate(item.dataCriacao).includes(searchQuery) ||
       item.protocolo.toString().includes(searchQuery) ||
-      item.fornecedor.toString().includes(searchQuery) ||
+      item.fornecedor.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.areaResponsavel?.toLowerCase().includes(searchQuery.toLowerCase()); // <-- Incluído filtro para área responsável
 
     const matchesDateRange =
