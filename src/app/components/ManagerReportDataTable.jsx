@@ -7,7 +7,7 @@ import { AttachMoney, Money, Visibility } from "@mui/icons-material";
 import handleStatusFlag from "../utils/handleStatusFlag";
 import DetailsModal from "./DetailsModal";
 import CostDetailsModal from "./CostDetailsModal";
-import * as Tooltip from '@radix-ui/react-tooltip'
+import * as Tooltip from "@radix-ui/react-tooltip";
 
 const ManagerReportDataTable = ({ data, isFilteredData }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,15 +34,17 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
       item.solicitante.toLowerCase().includes(searchQuery.toLowerCase()) ||
       formatDate(item.dataCriacao).includes(searchQuery) ||
       item.protocolo.toString().includes(searchQuery) ||
+      item.fornecedor.toString().includes(searchQuery) ||
       item.areaResponsavel?.toLowerCase().includes(searchQuery.toLowerCase()); // <-- Incluído filtro para área responsável
 
-    const matchesDateRange = (!start || itemDate >= start) && (!end || itemDate <= end);
+    const matchesDateRange =
+      (!start || itemDate >= start) && (!end || itemDate <= end);
 
-    const matchesStatus = !statusFilter || handleStatusFlag(item) === statusFilter;
+    const matchesStatus =
+      !statusFilter || handleStatusFlag(item) === statusFilter;
 
     return matchesSearch && matchesDateRange && matchesStatus;
   });
-
 
   // Atualiza o total de páginas com base nos dados filtrados
   const totalPages = Math.ceil(filteredData.length / itemsPerPage) || 1;
@@ -69,7 +71,7 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
   const handleCostModal = (item) => {
     setSelectedItem(item);
     setCostModal(true);
-  }
+  };
 
   return (
     <div className="overflow-x-auto ">
@@ -79,7 +81,10 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
       )}
       {/* Modal de centro de custo */}
       {openCostModal && selectedItem && (
-        <CostDetailsModal item={selectedItem} onClose={() => setCostModal(false)} />
+        <CostDetailsModal
+          item={selectedItem}
+          onClose={() => setCostModal(false)}
+        />
       )}
       {/* Ficou parado */}
       {showTooltip && (
@@ -90,7 +95,9 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
       {!isFilteredData && (
         <div className="flex content-start gap-3">
           <div className="mb-4">
-            <label className="block mb-1">Buscar por CNPJ, Solicitante, Protocolo ou Área responsável:</label>
+            <label className="block mb-1">
+              Buscar por CNPJ, Solicitante, Protocolo ou Área responsável:
+            </label>
             <input
               type="text"
               className="border rounded p-2 w-120"
@@ -143,7 +150,6 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
         </div>
       )}
 
-
       <table className="min-w-full border border-gray-300 ">
         <thead>
           <tr className="bg-gray-200 text-gray-700">
@@ -163,27 +169,39 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
           {currentData.map((item) => (
             <tr key={item._id} className="border hover:bg-gray-100">
               <td className="border p-2 text-center">{item.protocolo}</td>
-              <td className="border p-2 text-center">{formatCNPJ(item.cnpj)} - <br /> {item.fornecedor} </td>
-              <td className="border p-2 text-center">{formatDate(item.dataCriacao)}</td>
-              <td className="border p-2 text-center">{formatDate(item.dataAtualizacao)}</td>
+              <td className="border p-2 text-center">
+                {formatCNPJ(item.cnpj)} - <br /> {item.fornecedor}{" "}
+              </td>
+              <td className="border p-2 text-center">
+                {formatDate(item.dataCriacao)}
+              </td>
+              <td className="border p-2 text-center">
+                {formatDate(item.dataAtualizacao)}
+              </td>
               <td className="border p-2 text-center">{item.areaResponsavel}</td>
               <td className="border p-2 text-center">
-                {item.descricao.length > 30 ? `${item.descricao.substring(0, 30)}...` : item.descricao}
+                {item.descricao.length > 30
+                  ? `${item.descricao.substring(0, 30)}...`
+                  : item.descricao}
               </td>
-              <td className="border p-2 text-center">R$ {formatNumberToDecimal(item.valor)}</td>
+              <td className="border p-2 text-center">
+                R$ {formatNumberToDecimal(item.valor)}
+              </td>
               <td className="border p-2 text-center">
                 <span
                   className={`inline-block w-3 h-3 p-2 border rounded-full 
-                    ${handleStatusFlag(item) === "not_send" ?
-                      "bg-red-500" :
-                      handleStatusFlag(item) === "sended" ?
-                        "bg-yellow-500" :
-                        handleStatusFlag(item) === "totvs_id" ?
-                          "bg-blue-500" :
-                          handleStatusFlag(item) === "finished" ?
-                            "bg-green-500" : "bg-gray-500"}`}
+                    ${
+                      handleStatusFlag(item) === "not_send"
+                        ? "bg-red-500"
+                        : handleStatusFlag(item) === "sended"
+                        ? "bg-yellow-500"
+                        : handleStatusFlag(item) === "totvs_id"
+                        ? "bg-blue-500"
+                        : handleStatusFlag(item) === "finished"
+                        ? "bg-green-500"
+                        : "bg-gray-500"
+                    }`}
                 ></span>
-
               </td>
               <td className="py-3 px-1 text-center flex justify-center items-center gap-2">
                 <Tooltip.Provider>
@@ -238,12 +256,9 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
                       </Tooltip.Content>
                     </Tooltip.Root>
                   </Tooltip.Provider>
-
                 )}
-
               </td>
             </tr>
-
           ))}
         </tbody>
       </table>
@@ -257,10 +272,14 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
         >
           Anterior
         </button>
-        <span className="px-3">Página {currentPage} de {totalPages}</span>
+        <span className="px-3">
+          Página {currentPage} de {totalPages}
+        </span>
         <button
           className="px-3 py-1 border rounded mx-1 cursor-pointer hover:bg-gray-300"
-          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
           disabled={currentPage === totalPages}
         >
           Próxima
