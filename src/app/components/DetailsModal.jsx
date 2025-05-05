@@ -44,17 +44,15 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                     </div>
                 </div>
             )}
-            <div className=" bg-white shadow-lg py-4 rounded-md w-240">
+            <div className="bg-white shadow-lg py-4 rounded-md w-240 max-h-150 overflow-auto">
                 <h2 className="text-lg font-semibold text-gray-900 border-b border-gray-300 py-3 px-4 mb-4">
                     Detalhes da Solicitação # {selectedItem.protocolo}
-
                 </h2>
                 <div className="px-5 pb-4">
                     <div className="flex border p-1">
                         <p className="text text-gray-700 w-full">
                             <strong>Fornecedor :</strong> {formatCNPJ(selectedItem.cnpj)} - {selectedItem.fornecedor}
                         </p>
-
                     </div>
                     <div className="flex border-l border-r p-1 bg-gray-200">
                         <p className="text text-gray-700 ">
