@@ -121,7 +121,7 @@ const DataTable = ({ data, classId }) => {
             <th className="border p-2">Data de abertura</th>
             <th className="border p-2">Ultima atualização</th>
             <th className="border p-2">Aprovador do Serviço</th>
-            <th className="border p-2">Área responsável</th>
+            <th className="border p-2">{classId === "67e2e09b40652a3ea4250bd5" ? "Área responsável" : "Descrição"}</th>
             <th className="border p-2">Aprovado Medição</th>
             <th className="border p-2">Aprovado Nota Fiscal</th>
             <th className="border p-2">Solicitação paga</th>
@@ -148,7 +148,12 @@ const DataTable = ({ data, classId }) => {
               <td className="border p-2 text-center">{formatDate(item.data)}</td>
               <td className="border p-2 text-center">{formatDate(item.dataAtualizacao)}</td>
               <td className="border p-2 text-center">{item.aprovador ?? "-"}</td>
-              <td className="border p-2 text-center">{item.areaResponsavel ?? "-"}</td>
+              <td className="border p-2 text-center">{classId === "67e2e09b40652a3ea4250bd5" ? item.areaResponsavel : (
+                item.descricao.length > 30
+                ? `${item.descricao.substring(0, 30)}...`
+                : item.descricao
+              )}
+                </td>
               <td className="border p-2 text-center">
                 <Tooltip.Provider>
                   <Tooltip.Root>
