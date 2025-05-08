@@ -107,7 +107,7 @@ const UserDetailsModal = ({ item: selectedItem, onClose }) => {
                                 handleStatusFlag(selectedItem) === "sended" ?
                                     "NF Enviada" :
                                     handleStatusFlag(selectedItem) === "totvs_id" ?
-                                        "Lançamento TOTVs realizado" :
+                                        "Aguardando aprovação de nota fiscal" :
                                         handleStatusFlag(selectedItem) === "finished" ?
                                             "NF validada e Processo finalizado" : "Erro"}</span>
                         </p>

@@ -3,6 +3,7 @@ import formatDate from "../utils/formatDate";
 import * as Tooltip from '@radix-ui/react-tooltip'
 import UserDetailsModal from "./UserDetailsModal";
 import formatCNPJ from "../utils/formatCNPJ";
+import formatNumberToDecimal from "../utils/formatNumberToDecimal";
 
 const DataTable = ({ data, classId }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -120,8 +121,8 @@ const DataTable = ({ data, classId }) => {
             <th className="border p-2">{classId === "67e2e09b40652a3ea4250bd5" ? "Etapa" : "Fornecedor"}</th>
             <th className="border p-2">Data de abertura</th>
             <th className="border p-2">Ultima atualização</th>
-            <th className="border p-2">Aprovador do Serviço</th>
-            <th className="border p-2">{classId === "67e2e09b40652a3ea4250bd5" ? "Área responsável" : "Descrição"}</th>
+            <th className="border p-2">Valor</th>
+            <th className="border p-2">Descrição</th>
             <th className="border p-2">Aprovado Medição</th>
             <th className="border p-2">Aprovado Nota Fiscal</th>
             <th className="border p-2">Solicitação paga</th>
@@ -137,7 +138,9 @@ const DataTable = ({ data, classId }) => {
                     ? "Pago"
                     : item.aprovadoNF && item.aprovadoSolicitacao
                       ? "Aprovado"
-                      : item.etapa
+                      : item.etapa === "Aguardando lançamento TOTVs" && classId === "67e2e09b40652a3ea4250bd5"
+                        ? "Aguardando processo interno"
+                        : item.etapa
                 ) : (
                   <>
                     {formatCNPJ(item.cnpj)} - <br />
@@ -147,13 +150,13 @@ const DataTable = ({ data, classId }) => {
               </td>
               <td className="border p-2 text-center">{formatDate(item.data)}</td>
               <td className="border p-2 text-center">{formatDate(item.dataAtualizacao)}</td>
-              <td className="border p-2 text-center">{item.aprovador ?? "-"}</td>
-              <td className="border p-2 text-center">{classId === "67e2e09b40652a3ea4250bd5" ? item.areaResponsavel : (
+              <td className="border p-2 text-center">{formatNumberToDecimal(item.valor) }</td>
+              <td className="border p-2 text-center">{
                 item.descricao.length > 30
-                ? `${item.descricao.substring(0, 30)}...`
-                : item.descricao
-              )}
-                </td>
+                  ? `${item.descricao.substring(0, 30)}...`
+                  : item.descricao
+              }
+              </td>
               <td className="border p-2 text-center">
                 <Tooltip.Provider>
                   <Tooltip.Root>
