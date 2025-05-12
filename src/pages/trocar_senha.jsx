@@ -47,10 +47,9 @@ export default function ChangePassword() {
         fetchData();
     }, [cnpj]);
 
-
     return (
         <div className="container mx-auto">
-            {data && <CompanyData data={data} />}
+            {data && <CompanyData data={data.supplier} emailTypes={data.emails_types} />}
         </div>
     )
 }
