@@ -11,12 +11,26 @@ const CompanyData = ({ data, emailTypes }) => {
     updated[index].email = value;
     setEmails(updated);
   };
-
+  
+  // Atualiza o tipo do email
   const handleEmailTypeChange = (index, typeId) => {
-    const updated = [...emails];
-    updated[index].type = { ...updated[index].type, _id: typeId };
+    const updated = emails.map((emailObj, i) => {
+      if (i === index) {
+        // Atualiza o tipo do email atual
+        return { ...emailObj, type: { ...emailObj.type, _id: typeId } };
+      }
+
+      // Se for um dos outros e o tipo selecionado for o principal, e o atual já for principal, reseta
+      if (typeId === "59122c36116a1f1dccc704b9" && emailObj.type?._id === "59122c36116a1f1dccc704b9") {
+        return { ...emailObj, type: { ...emailObj.type, _id: "" } };
+      }
+
+      return emailObj;
+    });
+
     setEmails(updated);
   };
+
 
   const handleAddEmail = () => {
     setEmails([...emails, { email: "", type: { _id: "" } }]);
@@ -80,8 +94,11 @@ const CompanyData = ({ data, emailTypes }) => {
         </div>
 
         <div>
-          <p className="text-lg font-semibold text-gray-700 mb-2">
+          <p className="text-lg font-semibold text-gray-700 mb-1">
             Emails Registrados:
+          </p>
+          <p className="mb-2">
+            <small>É possível ter apenas um email principal e varios secundários</small>
           </p>
 
           <div className="flex flex-col gap-4">
@@ -91,11 +108,10 @@ const CompanyData = ({ data, emailTypes }) => {
               return (
                 <div
                   key={index}
-                  className={`flex flex-col md:flex-row gap-3 items-start md:items-center p-3 rounded-md border ${
-                    isPrincipal
-                      ? "border-yellow-500 bg-yellow-50"
-                      : "border-gray-200"
-                  }`}
+                  className={`flex flex-col md:flex-row gap-3 items-start md:items-center p-3 rounded-md border ${isPrincipal
+                    ? "border-yellow-500 bg-yellow-50"
+                    : "border-gray-200"
+                    }`}
                 >
                   <input
                     type="email"
@@ -116,8 +132,8 @@ const CompanyData = ({ data, emailTypes }) => {
                       Selecione o tipo
                     </option>
                     {emailTypes.map((type) => (
-                      <option key={type.id} value={type.id}>
-                        {type.name}
+                      <option key={type._id} value={type._id}>
+                        {type._source.name}
                       </option>
                     ))}
                   </select>

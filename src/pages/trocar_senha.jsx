@@ -9,17 +9,17 @@ export default function ChangePassword() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const searchParams = useSearchParams();
-    const cnpj = searchParams.get("cnpj"); // Pegando user_name diretamente
+    const userId = searchParams.get("id"); // Pegando user_name diretamente
 
     useEffect(() => {
-        if (!cnpj) {
+        if (!userId) {
             setLoading(false);
             return;
         }
         async function fetchData() {
             try {
                 const response = await fetch(
-                    "https://faculdadeunimed.sydle.one/api/1/main/crm/supplier/findByCNPJ?cnpj=" + cnpj,
+                    "https://faculdadeunimed.sydle.one/api/1/main/crm/supplier/findByCNPJ?_id=" + userId,
                     {
                         method: "GET",
                         headers: {
@@ -45,11 +45,12 @@ export default function ChangePassword() {
         }
 
         fetchData();
-    }, [cnpj]);
+    }, [userId]);
 
     return (
         <div className="container mx-auto">
-            {data && <CompanyData data={data.supplier} emailTypes={data.emails_types} />}
+            {data && <CompanyData data={data.supplier} emailTypes={data.emailTypes} />}
         </div>
     )
 }
+
