@@ -1,44 +1,44 @@
 import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
 
 const CompanyData = ({ data, emailTypes }) => {
   const [emails, setEmails] = useState(data.emails || []);
   const [deleteEmails, setDeleteEmails] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleEmailChange = (index, value) => {
     const updated = [...emails];
     updated[index].email = value;
     setEmails(updated);
   };
-  
-  // Atualiza o tipo do email
+
   const handleEmailTypeChange = (index, typeId) => {
     const updated = emails.map((emailObj, i) => {
       if (i === index) {
-        // Atualiza o tipo do email atual
         return { ...emailObj, type: { ...emailObj.type, _id: typeId } };
       }
-
-      // Se for um dos outros e o tipo selecionado for o principal, e o atual já for principal, reseta
       if (typeId === "59122c36116a1f1dccc704b9" && emailObj.type?._id === "59122c36116a1f1dccc704b9") {
         return { ...emailObj, type: { ...emailObj.type, _id: "" } };
       }
-
       return emailObj;
     });
 
     setEmails(updated);
   };
 
-
   const handleAddEmail = () => {
     setEmails([...emails, { email: "", type: { _id: "" } }]);
   };
 
   const handleRemoveEmail = (index) => {
-    const toRemove = emails[index]; // ← captura ANTES de setEmails
-
+    const toRemove = emails[index];
     setEmails((prev) => prev.filter((_, i) => i !== index));
 
     if (toRemove && toRemove._id) {
@@ -46,7 +46,7 @@ const CompanyData = ({ data, emailTypes }) => {
     }
   };
 
-  const handlePrintOutput = () => {
+  const handlePrintOutput = async () => {
     const output = {
       id: data._id,
       email: data.email,
@@ -55,26 +55,34 @@ const CompanyData = ({ data, emailTypes }) => {
     };
 
     try {
-      const response = fetch(
+      const response = await fetch(
         "https://faculdadeunimed.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/updateEmail",
         {
           method: "POST",
           headers: {
             Authorization: `Basic ${process.env.NEXT_PUBLIC_PROD_KEY}`,
             "User-Agent": "insomnia/10.3.0",
+            "Content-Type": "application/json",
           },
           cache: "no-store",
           body: JSON.stringify(output),
         }
       );
 
-      const result = response
+      const result = await response.json();
       console.log("Dados da API:", result);
+      if (result?._singleValue === "Usuário atualizado") {
+        setOpenModal(true);
+      }
     } catch (err) {
       console.error("Erro ao enviar dados:", err);
     } finally {
       console.log("Dados enviados com sucesso!");
     }
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
   };
 
   return (
@@ -103,14 +111,11 @@ const CompanyData = ({ data, emailTypes }) => {
 
           <div className="flex flex-col gap-4">
             {emails.map((emailObj, index) => {
-              const isPrincipal =
-                emailObj.type?._id === "59122c36116a1f1dccc704b9";
+              const isPrincipal = emailObj.type?._id === "59122c36116a1f1dccc704b9";
               return (
                 <div
                   key={index}
-                  className={`flex flex-col md:flex-row gap-3 items-start md:items-center p-3 rounded-md border ${isPrincipal
-                    ? "border-yellow-500 bg-yellow-50"
-                    : "border-gray-200"
+                  className={`flex flex-col md:flex-row gap-3 items-start md:items-center p-3 rounded-md border ${isPrincipal ? "border-yellow-500 bg-yellow-50" : "border-gray-200"
                     }`}
                 >
                   <input
@@ -123,9 +128,7 @@ const CompanyData = ({ data, emailTypes }) => {
 
                   <select
                     value={(emailObj?.type && emailObj.type._id) || ""}
-                    onChange={(e) =>
-                      handleEmailTypeChange(index, e.target.value)
-                    }
+                    onChange={(e) => handleEmailTypeChange(index, e.target.value)}
                     className="w-full md:w-1/3 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="" disabled>
@@ -168,6 +171,39 @@ const CompanyData = ({ data, emailTypes }) => {
           </div>
         </div>
       </div>
+
+      <Dialog
+        open={openModal}
+        onClose={handleCloseModal}
+        fullWidth
+        maxWidth="sm" // aumenta o tamanho padrão do dialog (xs, sm, md, lg, xl)
+        className="rounded-md shadow-lg"
+      
+      >
+        <DialogTitle
+          className="bg-green-500 text-white text-xl font-semibold px-6 py-4"
+        >
+          🎉 Sucesso
+        </DialogTitle>
+
+        <DialogContent className="px-6 py-4 mt-5">
+          <DialogContentText className="text-gray-700 text-lg">
+            Usuário atualizado com sucesso!
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions className="px-6 pb-4">
+          <Button
+            onClick={handleCloseModal}
+            variant="contained"
+            color="success"
+            className="rounded-md"
+          >
+            Fechar
+          </Button>
+        </DialogActions>
+      </Dialog>
+
     </div>
   );
 };
