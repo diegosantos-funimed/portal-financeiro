@@ -21,7 +21,6 @@ const ChangeLogData = ({ data }) => {
 
     return (
         <div style={{ padding: 20 }}>
-            <h1 className="text-2xl font-bold">Changelog do Portal De Notas</h1>
             {groups.map((group) => (
                 <div key={group.version} style={{ marginBottom: 40 }}>
                     <h2 className="text-2 font-serif italic">
