@@ -13,12 +13,12 @@ export default function ReportPage() {
         async function fetchData() {
             try {
                 const response = await fetch(
-                    "https://faculdadeunimed-dev.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/devAPI" ,
+                    "https://faculdadeunimed.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/getChangelog" ,
                     {
                         method: "GET",
                         headers: {
-                            "Authorization": `Basic ${process.env.NEXT_PUBLIC_API_KEY}`,
-                            "User-Agent": "insomnia/10.3.0",
+                            "Authorization": `Basic ${process.env.NEXT_PUBLIC_PROD_KEY}`,
+                            "Content-Type": "application/json",
                         },
                         cache: "no-store",
                     }
