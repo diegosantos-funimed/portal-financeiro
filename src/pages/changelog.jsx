@@ -1,29 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ManagerReportDataTable from "../app/components/ManagerReportDataTable";
-import NewManagerReportData from "../app/components/NewManagerReportDataTable";
-import { useSearchParams } from "next/navigation";
+import ChangeLogData from "../app/components/ChangelogData";
 
 export default function ReportPage() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const searchParams = useSearchParams();
-
-    const userName = searchParams.get("user_id");
 
     useEffect(() => {
-        if (!userName) return;
 
         async function fetchData() {
             try {
                 const response = await fetch(
-                    "https://faculdadeunimed.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/devAPI?user_id=" + userName,
+                    "https://faculdadeunimed-dev.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/devAPI" ,
                     {
                         method: "GET",
                         headers: {
-                            "Authorization": `Basic ${process.env.NEXT_PUBLIC_PROD_KEY}`,
+                            "Authorization": `Basic ${process.env.NEXT_PUBLIC_API_KEY}`,
                             "User-Agent": "insomnia/10.3.0",
                         },
                         cache: "no-store",
@@ -45,12 +39,12 @@ export default function ReportPage() {
         }
 
         fetchData();
-    }, [userName]);
+    }, []);
 
 
     return (
         <div className="container mx-auto">
-            {data && <NewManagerReportData data={data} />} 
+            {data && <ChangeLogData data={data} />} 
             {/* {data && <ManagerReportDataTable data={data} />} */}
         </div>
     )
