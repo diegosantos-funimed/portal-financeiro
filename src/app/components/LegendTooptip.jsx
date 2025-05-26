@@ -1,16 +1,26 @@
 'use client'
 
+import { useState } from 'react'
 import * as Tooltip from '@radix-ui/react-tooltip'
 
 const LegendTooltip = () => {
+  const [open, setOpen] = useState(false)
+
+  const toggleTooltip = () => {
+    setOpen((prev) => !prev)
+  }
+
   return (
     <div className="flex justify-end p-2">
       <Tooltip.Provider>
-        <Tooltip.Root>
+        <Tooltip.Root open={open} onOpenChange={setOpen}>
           <Tooltip.Trigger asChild>
-            <span className="cursor-pointer text-lg flex gap-1 items-center">
-              Legenda de status -   <span className="inline-block w-4 h-4 border rounded-full bg-green-500"></span>
-
+            <span
+              className="cursor-pointer text-lg flex gap-1 items-center"
+              onClick={toggleTooltip} // <-- Adiciona clique
+            >
+              Legenda de status -{' '}
+              <span className="inline-block w-4 h-4 border rounded-full bg-green-500"></span>
             </span>
           </Tooltip.Trigger>
           <Tooltip.Content

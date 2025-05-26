@@ -10,32 +10,32 @@ const FilterPanel = ({
   }) => {
     if (isFilteredData) return null;
     return (
-      <div className="flex content-start gap-3">
+      <div className="flex flex-col md:flex-row content-start gap-3 p-3 md:p-0">
         <div className="mb-4">
           <label className="block mb-1">Buscar por CNPJ, Solicitante, Protocolo ou Área responsável:</label>
           <input
             type="text"
-            className="border rounded p-2 w-120"
+            className="border rounded p-2 w-full md:w-120"
             placeholder="Digite para buscar..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
           />
         </div>
         <div className="flex gap-4 mb-4">
-          <div>
+          <div className="w-1/2">
             <label className="block mb-1">Data Inicial:</label>
             <input
               type="date"
-              className="border rounded p-2"
+              className="border rounded p-2 w-full"
               value={startDate}
               onChange={e => setStartDate(e.target.value)}
             />
           </div>
-          <div>
+          <div className="w-1/2">
             <label className="block mb-1">Data Final:</label>
             <input
               type="date"
-              className="border rounded p-2"
+              className="border rounded p-2 w-full"
               value={endDate}
               onChange={e => setEndDate(e.target.value)}
             />
@@ -44,7 +44,7 @@ const FilterPanel = ({
         <div className="flex mb-4 flex-col">
           <label className="block mb-1">Status:</label>
           <select
-            className="border rounded p-2 w-50"
+            className="border rounded p-2 md:w-50 w-full"
             value={statusFilter}
             onChange={e => setStatusFilter(e.target.value)}
           >

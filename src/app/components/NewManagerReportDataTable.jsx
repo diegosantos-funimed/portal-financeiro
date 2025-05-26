@@ -5,6 +5,7 @@ import Pagination from "./TableComponents/Pagination";
 import DetailsModal from "./DetailsModal";
 import CostDetailsModal from "./CostDetailsModal";
 import handleStatusFlag from "../utils/handleStatusFlag";
+import ResponsiveRow from "./TableComponents/ResponsiveRow";
 
 const ManagerReportDataTable = ({ data, isFilteredData }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -86,7 +87,7 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
       />
 
       <table className="min-w-full border border-gray-300 ">
-        <thead>
+        <thead className="hidden md:table-header-group">
           <tr className="bg-gray-200 text-gray-700">
             <th className="border p-2">#</th>
             <th className="border p-2">CNPJ - Fornecedor</th>
@@ -99,9 +100,9 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
             <th className="border p-2">Ações</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="hidden md:table-row-group">
           {currentData.map((item) => (
-            <TableRow
+            <ResponsiveRow
               key={item._id}
               item={item}
               onDetailsClick={handleDetailsClick}
@@ -111,6 +112,17 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
         </tbody>
       </table>
 
+      {/* Mobile View */}
+      <div className="md:hidden p-3">
+        {currentData.map((item) => (
+          <ResponsiveRow
+            key={item._id}
+            item={item}
+            onDetailsClick={handleDetailsClick}
+            onCostClick={handleCostClick}
+          />
+        ))}
+      </div>
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
