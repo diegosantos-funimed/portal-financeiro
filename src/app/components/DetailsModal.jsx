@@ -222,7 +222,7 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                 </span>
                 <div className="flex  w-90p">
                   {selectedItem.anexoNF ? (
-                    <div className="flex flex-col md:flex-col gap-2 p-1 md:items-center justify-between w-100">
+                    <div className="flex flex-col md:flex-col gap-2 p-1 items-center justify-between w-100">
                       <span>
                         {" "}
                         <InsertDriveFileOutlined /> {

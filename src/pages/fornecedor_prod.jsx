@@ -1,8 +1,9 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import DataTable from "../app/components/UserDataTable";
+// import DataTable from "../app/components/UserDataTable";
 import { useEffect, useState } from "react";
+import DataTable from "../app/components/NewUserDataTable";
 
 export default function DashboardPage() {
   const searchParams = useSearchParams();
