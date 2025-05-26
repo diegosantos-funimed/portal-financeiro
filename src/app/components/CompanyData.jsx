@@ -70,7 +70,6 @@ const CompanyData = ({ data, emailTypes }) => {
       );
 
       const result = await response.json();
-      console.log("Dados da API:", result);
       if (result?._singleValue === "Usuário atualizado") {
         setOpenModal(true);
       }

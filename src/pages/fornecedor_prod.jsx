@@ -41,7 +41,6 @@ export default function DashboardPage() {
         }
 
         const result = await response.json();
-        console.log("Dados da API:", result);
         setData(result);
       } catch (err) {
         setError(err.message);

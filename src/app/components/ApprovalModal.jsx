@@ -34,7 +34,6 @@ const ApprovalModal = ({ item: selectedItem, onClose }) => {
             }
 
             const result = await response.json();
-            console.log("Dados da API:", result);
 
             setSuccess(true);
         } catch (err) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import YearReportData from "./YearReportData";
 import UserDataTable from "./UserDataTable";
-import ManagerReportDataTable from "./ManagerReportDataTable";
+import ManagerReportDataTable from "./NewManagerReportDataTable";
 import { ArrowBack } from "@mui/icons-material";
 import formatCNPJ from "../utils/formatCNPJ";
 import LegendTooltip from "./LegendTooptip";
@@ -51,7 +51,7 @@ const MonthlyReportData = ({ dadosFornecedores }) => {
         <div>
             {selectedCnpj && selectedMes ? (
                 <div className="mt-10">
-                    <div className="flex justify-between items-center mb-4">
+                    <div className="flex flex-col md:flex-row justify-between items-center mb-4">
                         <h3 className="text-xl font-bold mb-2">
                             Dados para {formatCNPJ(selectedCnpj)} -  {selectedMes.toUpperCase()}
                         </h3>
