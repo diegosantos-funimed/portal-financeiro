@@ -9,7 +9,7 @@ import ResponsiveRow from "./TableComponents/ResponsiveRow";
 
 const ManagerReportDataTable = ({ data, isFilteredData }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -28,7 +28,7 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
 
     const matchesSearch =
       !searchQuery ||
-      item.cnpj.includes(searchQuery) || // Você pode usar seu formatCNPJ aqui se quiser
+      item.cnpj.includes(searchQuery) ||
       item.solicitante.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.protocolo.toString().includes(searchQuery) ||
       item.fornecedor.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -47,7 +47,7 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, startDate, endDate, statusFilter]);
+  }, [searchQuery, startDate, endDate, statusFilter, itemsPerPage]);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentData = filteredData.slice(startIndex, startIndex + itemsPerPage);
@@ -85,6 +85,25 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
         setStatusFilter={setStatusFilter}
         isFilteredData={isFilteredData}
       />
+      <div className="flex justify-between items-center mb-2 p-2 md:p-0">
+        <div id="total">
+          <span>Total de registros: <span className="font-bold text-lg">{filteredData.length}</span> </span>
+        </div>
+        <div id="select" className="flex items-center gap-2">
+          <span>Registros por pagina:</span>
+          <select
+            name="page_size"
+            value={itemsPerPage}
+            className="border p-2 rounded"
+            onChange={(e) => setItemsPerPage(Number(e.target.value))}
+          >
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+        </div>
+      </div>
 
       <table className="min-w-full border border-gray-300 ">
         <thead className="hidden md:table-header-group">
@@ -127,6 +146,7 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
+        totalData={filteredData.length}
       />
     </div>
   );

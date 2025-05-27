@@ -148,14 +148,6 @@ const UserDetailsModal = ({ item: selectedItem, onClose }) => {
               </span>
             </p>
           </div>
-          {/* {selectedItem.lancamentoTOTVS && (
-                        <div className="flex bg-gray-200 border-b border-r border-l p-1 ">
-                            <p className="text text-gray-700 w-1/2">
-                                <strong>Referência de lançamento TOTVS:</strong> {selectedItem.lancamentoTOTVS}
-                            </p>
-                        </div>
-                    )} */}
-
           <p className="text  text-gray-700 border-l border-r p-1">
             <strong>Descrição:</strong> {selectedItem.descricao}
           </p>
@@ -171,7 +163,7 @@ const UserDetailsModal = ({ item: selectedItem, onClose }) => {
                     {selectedItem.anexo.map((anexo, index) => (
                       <div
                         key={index}
-                        className="flex gap-2 flex-col p-1 md:items-center justify-between "
+                        className="flex gap-2 flex-col md:flex-row p-1 md:items-start items-center justify-between "
                       >
                         <span className="text-sm">
                           <AttachFile /> {anexo.name}{" "}

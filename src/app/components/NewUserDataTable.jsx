@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import formatDate from "../utils/formatDate";
-import * as Tooltip from "@radix-ui/react-tooltip";
 import UserDetailsModal from "./UserDetailsModal";
-import formatCNPJ from "../utils/formatCNPJ";
-import formatNumberToDecimal from "../utils/formatNumberToDecimal";
 import DataRowResponsive from "./UserComponents/DataRowResponsive";
 import Pagination from "./UserComponents/Pagination";
-import StatusDotTooltip from "./UserComponents/StatusDotTooltip";
 
 const DataTable = ({ data, classId }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -159,6 +154,26 @@ const DataTable = ({ data, classId }) => {
               <option value="reproved">Reprovada</option>
             </select>
           </div>
+        </div>
+      </div>
+
+      <div className="flex justify-between items-center mb-2 p-2 md:p-0">
+        <div id="total">
+          <span>Total de registros: <span className="font-bold text-lg">{filteredData.length}</span> </span>
+        </div>
+        <div id="select" className="flex items-center gap-2">
+          <span>Registros por pagina:</span>
+          <select
+            name="page_size"
+            value={itemsPerPage}
+            className="border p-2 rounded"
+            onChange={(e) => setItemsPerPage(Number(e.target.value))}
+          >
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
         </div>
       </div>
       {/* Cabeçalho da tabela Desktop */}
