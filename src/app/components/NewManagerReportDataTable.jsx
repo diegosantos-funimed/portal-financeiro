@@ -62,6 +62,8 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
     setCostModal(true);
   };
 
+  console.log(filteredData)
+
   return (
     <div className="overflow-x-auto ">
       {openModal && selectedItem && (
@@ -120,9 +122,9 @@ const ManagerReportDataTable = ({ data, isFilteredData }) => {
           </tr>
         </thead>
         <tbody className="hidden md:table-row-group">
-          {currentData.map((item) => (
+          {currentData.map((item, key) => (
             <ResponsiveRow
-              key={item._id}
+              key={key}
               item={item}
               onDetailsClick={handleDetailsClick}
               onCostClick={handleCostClick}

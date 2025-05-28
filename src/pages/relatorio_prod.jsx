@@ -19,7 +19,7 @@ export default function ReportPage() {
         async function fetchData() {
             try {
                 const response = await fetch(
-                    "https://faculdadeunimed.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/devAPI?user_id=" + userName,
+                    "https://faculdadeunimed.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/getManagerData?user_id=" + userName,
                     {
                         method: "GET",
                         headers: {

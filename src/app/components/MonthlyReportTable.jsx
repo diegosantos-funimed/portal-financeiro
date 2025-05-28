@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import YearReportData from "./YearReportData";
+import YearReportData from "./OldYearReportData";
 import UserDataTable from "./UserDataTable";
 import ManagerReportDataTable from "./NewManagerReportDataTable";
 import { ArrowBack } from "@mui/icons-material";
@@ -17,6 +17,7 @@ const MonthlyReportData = ({ dadosFornecedores }) => {
 
     useEffect(() => {
         const fetchData = async () => {
+            console.log("Fetching data for CNPJ:", selectedCnpj, "and month:", selectedMes);
             if (!selectedCnpj || !selectedMes) return;
 
             setLoading(true);
@@ -45,6 +46,7 @@ const MonthlyReportData = ({ dadosFornecedores }) => {
     const handleSelect = (cnpj, mesIndex) => {
         setSelectedCnpj(cnpj);
         setSelectedMes(mesesAPI[mesIndex]);
+        // setSelectedMes(mesIndex.toLowerCase());
     };
 
     return (

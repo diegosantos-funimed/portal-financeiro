@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from "react";
 
 const months = [
-  "JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ",
+  "JAN",
+  "FEV",
+  "MAR",
+  "ABR",
+  "MAI",
+  "JUN",
+  "JUL",
+  "AGO",
+  "SET",
+  "OUT",
+  "NOV",
+  "DEZ",
 ];
 
 // Função auxiliar para mapear mês (0-11) para JAN, FEV, ...
@@ -14,34 +25,34 @@ const getMonthLabel = (date) => {
 const transformData = (data) => {
   return data.map((item) => {
     const statusPorMes = {};
+    const inicio = new Date(item.inicioDaCobranca);
+    const anoCobranca = inicio.getFullYear();
+    const mesCobranca = inicio.getMonth(); // 0 = Janeiro
 
-    // Inicializa todos os meses com status "gray" (sem envio)
-    months.forEach((month) => {
-      statusPorMes[month] = "gray"; // Inicialmente, todos os meses são cinza
-    });
-
-    let firstSentMonth = null; // Para identificar o primeiro mês com envio
-
-    // Marca os meses com os envios como "green" e os meses seguintes ao primeiro envio como "red"
-    item.registrosPorMes.forEach((registro) => {
-      const mesEnvio = getMonthLabel(registro.month); // Mapeia o mês para "JAN", "FEV", etc.
-      statusPorMes[mesEnvio] = "green"; // Marca o mês como "green" onde houve envio
-      if (!firstSentMonth) {
-        firstSentMonth = mesEnvio; // Armazena o primeiro mês com envio
+    // Inicializa todos os meses
+    months.forEach((_, index) => {
+      if (index < mesCobranca) {
+        statusPorMes[months[index]] = "gray"; // Antes do início da cobrança
+      } else {
+        statusPorMes[months[index]] = "red"; // Após ou igual ao início da cobrança, sem envio ainda
       }
     });
 
-    // Marca os meses seguintes ao primeiro envio como "red"
-    if (firstSentMonth) {
-      let firstSentMonthIndex = months.indexOf(firstSentMonth);
-      months.slice(firstSentMonthIndex + 1).forEach((month) => {
-        statusPorMes[month] = "red"; // Marca os meses seguintes como "red"
-      });
-    }
+    // Marca os envios como verde
+    item.envios.forEach((envio) => {
+      const dataEnvio = new Date(envio.dataCriacao);
+      const mesEnvio = dataEnvio.getMonth();
+      const anoEnvio = dataEnvio.getFullYear();
+
+      if (anoEnvio === anoCobranca) {
+        const mesLabel = months[mesEnvio];
+        statusPorMes[mesLabel] = "green"; // Teve envio
+      }
+    });
 
     return {
       cnpj: item.cnpj,
-      fornecedor: item.empresaNome,
+      fornecedor: item.name,
       statusPorMes,
     };
   });
@@ -109,11 +120,11 @@ const YearReportData = ({ data, onSelect }) => {
               <td className="border p-2 text-center">
                 {item.cnpj} <br /> {item.fornecedor}
               </td>
-              {months.map((month) => (
+              {months.map((month, index) => (
                 <td
                   key={month}
                   className="border p-2 text-center cursor-pointer"
-                  onClick={() => onSelect(item.cnpj, month)}
+                  onClick={() => onSelect(item.cnpj, index)}
                 >
                   {renderStatusDot(item.statusPorMes[month])}
                 </td>
@@ -135,10 +146,10 @@ const YearReportData = ({ data, onSelect }) => {
             </div>
 
             <div className="grid grid-cols-3 gap-3">
-              {months.map((month) => (
+              {months.map((month, index) => (
                 <button
                   key={month}
-                  onClick={() => onSelect(item.cnpj, month)}
+                  onClick={() => onSelect(item.cnpj, index)}
                   className="flex flex-col items-center justify-center border rounded p-2"
                 >
                   <span className="font-medium">{month}</span>

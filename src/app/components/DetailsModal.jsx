@@ -43,6 +43,7 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
 
     return !allowedExtensions.includes(extension);
   }
+  console.log(selectedItem)
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center transition-opacity duration-300 opacity-100 z-100">
@@ -151,10 +152,14 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
             </p>
           </div>
           {selectedItem.lancamentoTOTVS && (
-            <div className="flex bg-gray-200 border-b border-r border-l p-1 ">
+            <div className="flex flex-col md:flex-row bg-gray-200 border-b border-r border-l p-1 ">
               <p className="text text-gray-700  w-full md:w-1/2">
                 <strong>Referência de lançamento TOTVS:</strong>{" "}
                 {selectedItem.lancamentoTOTVS}
+              </p>
+              <p className="text text-gray-700  w-full md:w-1/2">
+                <strong>Responsável TOTVS:</strong>{" "}
+                {selectedItem.aprovadorAdministrativo}
               </p>
             </div>
           )}
@@ -222,7 +227,7 @@ const DetailsModal = ({ item: selectedItem, onClose }) => {
                 </span>
                 <div className="flex  w-90p">
                   {selectedItem.anexoNF ? (
-                    <div className="flex flex-col md:flex-col gap-2 p-1 items-center justify-between w-100">
+                    <div className="flex flex-col md:flex-row gap-2 p-1 items-start md:items-center justify-between w-100">
                       <span>
                         {" "}
                         <InsertDriveFileOutlined /> {
