@@ -5,9 +5,11 @@ const months = [
 ];
 
 // Função auxiliar para mapear mês (0-11) para JAN, FEV, ...
-const getMonthLabel = (date) => {
-  const d = new Date(date);
-  return months[d.getMonth()];
+const getMonthLabel = (dateString) => {
+  // Adiciona "T00:00:00Z" para garantir que a data seja tratada como UTC
+  // Isso evita que o fuso horário local "empurre" a data para o dia/mês anterior
+  const d = new Date(dateString + "T00:00:00Z");
+  return months[d.getUTCMonth()]; // Use getUTCMonth() para pegar o mês UTC
 };
 
 // Função para transformar os dados no formato correto
@@ -20,22 +22,27 @@ const transformData = (data) => {
       statusPorMes[month] = "gray"; // Inicialmente, todos os meses são cinza
     });
 
-    let firstSentMonth = null; // Para identificar o primeiro mês com envio
+    let firstSentMonthIndex = -1; // Para identificar o índice do primeiro mês com envio
 
-    // Marca os meses com os envios como "green" e os meses seguintes ao primeiro envio como "red"
+    // Marca os meses com os envios como "green"
     item.registrosPorMes.forEach((registro) => {
       const mesEnvio = getMonthLabel(registro.month); // Mapeia o mês para "JAN", "FEV", etc.
       statusPorMes[mesEnvio] = "green"; // Marca o mês como "green" onde houve envio
-      if (!firstSentMonth) {
-        firstSentMonth = mesEnvio; // Armazena o primeiro mês com envio
+      
+      // Atualiza o índice do primeiro mês com envio, se for anterior ao que já temos
+      const currentMonthIndex = months.indexOf(mesEnvio);
+      if (firstSentMonthIndex === -1 || currentMonthIndex < firstSentMonthIndex) {
+        firstSentMonthIndex = currentMonthIndex;
       }
     });
 
     // Marca os meses seguintes ao primeiro envio como "red"
-    if (firstSentMonth) {
-      let firstSentMonthIndex = months.indexOf(firstSentMonth);
+    if (firstSentMonthIndex !== -1) {
       months.slice(firstSentMonthIndex + 1).forEach((month) => {
-        statusPorMes[month] = "red"; // Marca os meses seguintes como "red"
+        // Apenas marca como red se o mês não for green (ou seja, se não houve envio)
+        if (statusPorMes[month] !== "green") {
+          statusPorMes[month] = "red";
+        }
       });
     }
 
@@ -106,7 +113,7 @@ const YearReportData = ({ data, onSelect }) => {
         <tbody>
           {currentData.map((item) => (
             <tr key={item.cnpj} className="border">
-              <td className="border p-2 text-center">
+              <td className="border p-2 text-center w-2/5">
                 {item.cnpj} <br /> {item.fornecedor}
               </td>
               {months.map((month) => (

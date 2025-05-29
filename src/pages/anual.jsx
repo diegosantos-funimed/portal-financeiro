@@ -16,7 +16,7 @@ export default function ReportPage() {
                 const response = await fetch(
                     "https://faculdadeunimed.sydle.one/api/1/main/br.edu.faculdadeUnimed.integracao/FachadaDeIntegracaoPortalDeNotas/getCompanyMontly",
                     {
-                        method: "POST",
+                        method: "GET",
                         headers: {
                             "Authorization": `Basic ${process.env.NEXT_PUBLIC_PROD_KEY}`,
                             "User-Agent": "insomnia/10.3.0",

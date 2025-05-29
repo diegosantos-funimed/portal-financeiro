@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import YearReportData from "./OldYearReportData";
+import YearReportData from "./YearReportData";
 import UserDataTable from "./UserDataTable";
 import ManagerReportDataTable from "./NewManagerReportDataTable";
 import { ArrowBack } from "@mui/icons-material";
@@ -9,15 +9,11 @@ import LegendTooltip from "./LegendTooptip";
 const MonthlyReportData = ({ dadosFornecedores }) => {
     const [selectedCnpj, setSelectedCnpj] = useState(null);
     const [selectedMes, setSelectedMes] = useState(null);
-    const [selectedSupplier, setSelectedSupplier] = useState(null);
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const mesesAPI = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
-
     useEffect(() => {
         const fetchData = async () => {
-            console.log("Fetching data for CNPJ:", selectedCnpj, "and month:", selectedMes);
             if (!selectedCnpj || !selectedMes) return;
 
             setLoading(true);
@@ -45,8 +41,7 @@ const MonthlyReportData = ({ dadosFornecedores }) => {
 
     const handleSelect = (cnpj, mesIndex) => {
         setSelectedCnpj(cnpj);
-        setSelectedMes(mesesAPI[mesIndex]);
-        // setSelectedMes(mesIndex.toLowerCase());
+        setSelectedMes(mesIndex.toLowerCase());
     };
 
     return (
